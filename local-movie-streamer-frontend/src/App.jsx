@@ -15,9 +15,11 @@ function App() {
       .then((response) => response.json())
       .then(async (movieList) => {
         const metadataPromises = movieList.map((movie) =>
-          fetch(`http://localhost:3001/api/movies/${movie}/metadata`).then(
-            (res) => res.json()
-          )
+          fetch(
+            `http://localhost:3001/api/movies/${encodeURIComponent(
+              movie
+            )}/metadata`
+          ).then((res) => res.json())
         );
         const metadataList = await Promise.all(metadataPromises);
         const moviesWithMetadata = movieList.map((movie, index) => ({
@@ -138,7 +140,9 @@ function App() {
             <video
               controls
               width="100%"
-              src={`http://localhost:3001/api/movies/${currentMovie}`}
+              src={`http://localhost:3001/api/movies/${encodeURIComponent(
+                currentMovie
+              )}`}
               className="shadow-inner mt-4"
             >
               {subtitleFile && (

@@ -1,26 +1,23 @@
 import express from "express";
-import { readdir, createReadStream, stat, mkdirSync } from "fs"; // Import mkdirSync
+import { createReadStream, stat, mkdirSync, existsSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 import ffmpeg from "fluent-ffmpeg";
 import chokidar from "chokidar";
 import cors from "cors";
-import fs from "fs"; // Import fs module
+import recursiveReaddir from "recursive-readdir";
 
 const app = express();
 const PORT = 3001;
 const movieDirectory =
   "C:\\Users\\jafer\\Desktop\\react_js_projects\\local-media\\movies";
 
-// Get the directory name from import.meta.url
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+const thumbnailDirectory = join(__dirname, "thumbnails");
 
-const thumbnailDirectory = join(__dirname, "thumbnails"); // Add this line
-
-// Ensure the thumbnails directory exists, create it if not
-if (!fs.existsSync(thumbnailDirectory)) {
-  fs.mkdirSync(thumbnailDirectory);
+if (!existsSync(thumbnailDirectory)) {
+  mkdirSync(thumbnailDirectory);
 }
 
 // Middleware
@@ -28,43 +25,39 @@ app.use(cors());
 app.use(express.static(join(__dirname, "public")));
 
 app.get("/api/movies", (req, res) => {
-  readdir(movieDirectory, (err, files) => {
+  recursiveReaddir(movieDirectory, (err, files) => {
     if (err) {
       console.error("Directory Read Error:", err);
       return res.status(500).json({ error: "Failed to read directory" });
     }
-    // Filter out only video files
+
     const videoExtensions = [".mp4", ".mkv", ".avi", ".flv", ".mov", ".wmv"];
-    const videoFiles = files.filter((file) => {
-      const ext = file.slice(((file.lastIndexOf(".") - 1) >>> 0) + 2); // Extract file extension
-      return videoExtensions.includes("." + ext);
-    });
+    const videoFiles = files
+      .filter((file) => {
+        const ext = file.slice(((file.lastIndexOf(".") - 1) >>> 0) + 2);
+        return videoExtensions.includes("." + ext);
+      })
+      .map((file) => file.replace(movieDirectory, "")); // Convert to relative path
     res.json(videoFiles);
   });
 });
 
 app.get("/api/movies/:name/thumbnail", (req, res) => {
   const movieName = decodeURIComponent(req.params.name);
-  const moviePath = join(movieDirectory, movieName);
+  const moviePath = join(movieDirectory, ...movieName.split("/"));
+  const thumbnailFolder = join(thumbnailDirectory, movieName);
 
-  const thumbnailFolder = join(thumbnailDirectory, movieName); // Change this line
-
-  // Ensure the thumbnail folder exists, create it if not
-  // if (!fs.existsSync(thumbnailFolder)) {
-  //   fs.mkdirSync(thumbnailFolder);
-  // }
-
-  const thumbnailPath = join(thumbnailFolder, "thumbnail.jpg"); // Change this line
+  const thumbnailPath = join(thumbnailFolder, "thumbnail.jpg");
 
   ffmpeg(moviePath)
     .screenshots({
       timestamps: ["40%"],
       filename: "thumbnail.jpg",
-      folder: thumbnailFolder, // Save the thumbnail in a folder named after the movie
+      folder: thumbnailFolder,
     })
     .on("end", () => {
       console.log("Generated Thumbnail:", thumbnailPath);
-      res.sendFile(thumbnailPath); // Send the thumbnail to the frontend
+      res.sendFile(thumbnailPath);
     })
     .on("error", (err) => {
       console.error("FFMPEG Thumbnail Generation Error:", err.message);
@@ -74,7 +67,7 @@ app.get("/api/movies/:name/thumbnail", (req, res) => {
 
 app.get("/api/movies/:name/metadata", (req, res) => {
   const movieName = decodeURIComponent(req.params.name);
-  const moviePath = join(movieDirectory, movieName);
+  const moviePath = join(movieDirectory, ...movieName.split("/"));
 
   ffmpeg.ffprobe(moviePath, (err, metadata) => {
     if (err) {
@@ -83,7 +76,6 @@ app.get("/api/movies/:name/metadata", (req, res) => {
     }
     const duration = metadata.format.duration;
 
-    // Log the duration and thumbnail path:
     console.log(`Duration for ${movieName}:`, duration);
     const thumbnailPath = `/api/movies/${encodeURIComponent(
       movieName
@@ -99,7 +91,7 @@ app.get("/api/movies/:name/metadata", (req, res) => {
 
 app.get("/api/movies/:name", (req, res) => {
   const movieName = decodeURIComponent(req.params.name);
-  const moviePath = join(movieDirectory, movieName);
+  const moviePath = join(movieDirectory, ...movieName.split("/"));
 
   stat(moviePath, (err, stats) => {
     if (err) {
