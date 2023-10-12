@@ -28,7 +28,7 @@ Stream your local movies through a beautiful web interface. Local Movie Streamer
 1. **Clone the repository:**
 
    ```sh
-   git clone [your-repo-link]
+   git clone https://github.com/sulimanbadour1/local-stream-app.git
    cd [your-repo-folder]
    ```
 
@@ -57,6 +57,10 @@ No specific configuration needed.
 
 ### Running the Application
 
+### Create a direrctory and add your movies to it.
+
+## Change the backend dir to your folder from the server.js file.
+
 #### Backend
 
 - Navigate to the `backend` directory.
@@ -69,6 +73,7 @@ No specific configuration needed.
 
   ```sh
   yarn start
+  node server.js
   ```
 
 #### Frontend
@@ -82,12 +87,12 @@ No specific configuration needed.
 - Start the React app:
 
   ```sh
-  yarn start
+  npm run dev
   ```
 
 ### Accessing the App
 
-- Open your web browser and visit `http://localhost:3000`.
+- Open your web browser and visit `http://localhost:5173`.
 - Enjoy streaming your local movies!
 
 ## Usage
