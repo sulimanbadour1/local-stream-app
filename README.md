@@ -2,7 +2,7 @@
 
 Stream your local movies through a beautiful web interface. Local Movie Streamer allows you to search through your movie collection, watch them, and even add subtitles!
 
-![Demo Image](demo-image.jpg)
+![Demo Image](https://github.com/sulimanbadour1/local-stream-app/blob/main/screenshots/demo.JPG?raw=true)
 
 ## Features
 
@@ -110,7 +110,3 @@ Feel free to contribute to this project! Fork the repository, make your changes,
 MIT License
 
 ---
-
-**Note**: Don't forget to replace placeholders (like `[your-repo-link]` and `[your-repo-folder]`) with actual values. Also, you might want to add a `demo-image.jpg` or any relevant image to make your README visually appealing.
-
-This README provides a good start, but you might also want to add sections like **FAQ**, **Known Issues**, and **Change Log** depending on the maturity and complexity of your project.
