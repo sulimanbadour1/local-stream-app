@@ -82,7 +82,7 @@ function App() {
   return (
     <div className="container mx-auto px-4">
       <h1 className="text-4xl mt-10 mb-8 font-semibold">
-        Local Movie Streamer
+        Local Movie Streamer 🎥
       </h1>
       <div className="relative mb-8">
         <input
@@ -158,6 +158,20 @@ function App() {
           </div>
         </div>
       )}
+
+      <div
+        className="sticky bottom-2 mx-auto w-12 h-12 md:h-12 md:w-12 bg-black rounded-full filter  grayscale-100
+              hover:bg-gray-500  transition-all duration-300 ease-in-out"
+      >
+        <img
+          className="w-12 h-12 md:h-12 md:w-12 object-contain rounded-full mx-auto"
+          src="https://github.com/sulimanbadour1/Sul_folio/blob/main/src/assets/logos/white.png?raw=true"
+          alt="logo"
+        />
+      </div>
+      <p className="text-xl rounded-full flex items-center text-center justify-center p-8">
+        Made with ❤️ by Suliman &copy; Oct 2023
+      </p>
     </div>
   );
 }
