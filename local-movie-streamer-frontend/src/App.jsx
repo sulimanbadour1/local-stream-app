@@ -121,7 +121,9 @@ function App() {
               ✖️
             </button>
             <h2 className="text-2xl mb-4">Now Playing: {currentMovie}</h2>
-            <div className="flex items-center justify-between mt-4">
+            <div className="flex items-center justify-between mt-4 space-x-4">
+              {" "}
+              {/* Updated layout */}
               <label className="bg-indigo-500 text-white px-3 py-1 rounded cursor-pointer hover:bg-indigo-600">
                 Upload Subtitle
                 <input
@@ -131,6 +133,14 @@ function App() {
                   className="hidden"
                 />
               </label>
+              <a
+                href="https://subscene.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-green-600 text-white px-3 py-1 rounded cursor-pointer hover:bg-green-800 mt-4 md:mt-0"
+              >
+                Download Subtitle
+              </a>
               {subtitleUploaded && (
                 <span className="text-base bg-green-200 p-1 rounded">
                   {subtitleName} uploaded!
