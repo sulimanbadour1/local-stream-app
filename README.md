@@ -46,6 +46,12 @@ Stream your local movies through a beautiful web interface. Local Movie Streamer
 
 ### Configuration
 
+- Create a direrctory and add your movies to it.
+
+- Change the backend dir to your folder from the server.js file.
+- File structure:
+  ![file struct Image](https://github.com/sulimanbadour1/local-stream-app/blob/main/screenshots/demo.JPG?raw=true)
+
 #### Backend
 
 - Navigate to the `backend` directory.
@@ -57,9 +63,9 @@ No specific configuration needed.
 
 ### Running the Application
 
-### Create a direrctory and add your movies to it.
+- Create a direrctory and add your movies to it.
 
-## Change the backend dir to your folder from the server.js file.
+- Change the backend dir to your folder from the server.js file.
 
 #### Backend
 
