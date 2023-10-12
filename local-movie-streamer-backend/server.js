@@ -1,11 +1,13 @@
 import express from "express";
-import { createReadStream, stat, mkdirSync, existsSync } from "fs";
-import { join, dirname } from "path";
+import { createReadStream, stat, mkdirSync, existsSync, rmdirSync } from "fs";
+import { join, dirname, sep, parse } from "path";
 import { fileURLToPath } from "url";
 import ffmpeg from "fluent-ffmpeg";
 import chokidar from "chokidar";
 import cors from "cors";
 import recursiveReaddir from "recursive-readdir";
+
+// App setup
 
 const app = express();
 const PORT = 3001;
@@ -15,10 +17,19 @@ const movieDirectory =
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const thumbnailDirectory = join(__dirname, "thumbnails");
+// delete cache
 
-if (!existsSync(thumbnailDirectory)) {
-  mkdirSync(thumbnailDirectory);
+// Check if the thumbnail directory exists and delete it
+if (existsSync(thumbnailDirectory)) {
+  try {
+    rmdirSync(thumbnailDirectory, { recursive: true });
+    console.log("Thumbnail directory deleted.");
+  } catch (err) {
+    console.error("Error deleting the thumbnail directory:", err);
+  }
 }
+// Then create a fresh thumbnail directory
+mkdirSync(thumbnailDirectory);
 
 // Middleware
 app.use(cors());
@@ -44,15 +55,24 @@ app.get("/api/movies", (req, res) => {
 
 app.get("/api/movies/:name/thumbnail", (req, res) => {
   const movieName = decodeURIComponent(req.params.name);
-  const moviePath = join(movieDirectory, ...movieName.split("/"));
-  const thumbnailFolder = join(thumbnailDirectory, movieName);
+  const moviePath = join(movieDirectory, ...movieName.split(sep));
+  const movieFileName = parse(moviePath).name; // Extract filename without extension
+  const thumbnailFolder = join(thumbnailDirectory, dirname(movieName));
 
-  const thumbnailPath = join(thumbnailFolder, "thumbnail.jpg");
+  if (!existsSync(thumbnailFolder)) {
+    mkdirSync(thumbnailFolder, { recursive: true });
+  }
+
+  const thumbnailPath = join(thumbnailFolder, `${movieFileName}_thumbnail.jpg`);
+
+  if (existsSync(thumbnailPath)) {
+    return res.sendFile(thumbnailPath);
+  }
 
   ffmpeg(moviePath)
     .screenshots({
       timestamps: ["40%"],
-      filename: "thumbnail.jpg",
+      filename: `${movieFileName}_thumbnail.jpg`, // Use unique filename
       folder: thumbnailFolder,
     })
     .on("end", () => {
@@ -64,10 +84,9 @@ app.get("/api/movies/:name/thumbnail", (req, res) => {
       res.status(500).send("Failed to generate thumbnail: " + err.message);
     });
 });
-
 app.get("/api/movies/:name/metadata", (req, res) => {
   const movieName = decodeURIComponent(req.params.name);
-  const moviePath = join(movieDirectory, ...movieName.split("/"));
+  const moviePath = join(movieDirectory, ...movieName.split(sep));
 
   ffmpeg.ffprobe(moviePath, (err, metadata) => {
     if (err) {
@@ -91,7 +110,7 @@ app.get("/api/movies/:name/metadata", (req, res) => {
 
 app.get("/api/movies/:name", (req, res) => {
   const movieName = decodeURIComponent(req.params.name);
-  const moviePath = join(movieDirectory, ...movieName.split("/"));
+  const moviePath = join(movieDirectory, ...movieName.split(sep));
 
   stat(moviePath, (err, stats) => {
     if (err) {
@@ -131,7 +150,41 @@ const watcher = chokidar.watch(movieDirectory, {
 
 watcher
   .on("add", (path) => console.log(`File ${path} has been added`))
-  .on("unlink", (path) => console.log(`File ${path} has been removed`));
+  .on("unlink", (path) => {
+    console.log(`File ${path} has been removed`);
+
+    // Extracting the relative movie path
+    const movieRelPath = path.replace(movieDirectory, "");
+
+    // Identifying the thumbnail path
+    const thumbnailPath = join(
+      thumbnailDirectory,
+      movieRelPath,
+      "thumbnail.jpg"
+    );
+
+    if (existsSync(thumbnailPath)) {
+      fs.unlink(thumbnailPath, (err) => {
+        if (err) {
+          console.error("Error deleting thumbnail:", err);
+        } else {
+          console.log("Deleted thumbnail:", thumbnailPath);
+        }
+      });
+    }
+
+    // Optionally, you can also delete the whole thumbnail directory for that movie
+    const movieThumbnailDirectory = join(thumbnailDirectory, movieRelPath);
+    if (existsSync(movieThumbnailDirectory)) {
+      fs.rmdir(movieThumbnailDirectory, { recursive: true }, (err) => {
+        if (err) {
+          console.error("Error deleting thumbnail directory:", err);
+        } else {
+          console.log("Deleted thumbnail directory:", movieThumbnailDirectory);
+        }
+      });
+    }
+  });
 
 app.listen(PORT, () => {
   console.log(`Server started on http://localhost:${PORT}`);
