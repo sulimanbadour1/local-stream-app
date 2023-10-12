@@ -50,7 +50,7 @@ Stream your local movies through a beautiful web interface. Local Movie Streamer
 
 - Change the backend dir to your folder from the server.js file.
 - File structure:
-  ![file struct Image](https://github.com/sulimanbadour1/local-stream-app/blob/main/screenshots/demo.JPG?raw=true)
+  ![file struct Image](https://github.com/sulimanbadour1/local-stream-app/blob/main/screenshots/file_stru.JPG?raw=true)
 
 #### Backend
 
