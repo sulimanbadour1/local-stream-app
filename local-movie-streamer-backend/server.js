@@ -211,8 +211,8 @@ io.on("connection", (socket) => {
   });
 });
 
-httpServer.listen(PORT, "192.168.1.100", () => {
-  console.log(`Server started on http://192.168.1.100:${PORT}`);
+httpServer.listen(PORT, process.env.IP_ADDRESS, () => {
+  console.log(`Server started on http://${process.env.IP_ADDRESS}:${PORT}`);
 });
 
 // app.listen(PORT, () => {
