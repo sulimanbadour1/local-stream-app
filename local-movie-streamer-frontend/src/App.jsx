@@ -1,42 +1,40 @@
 import React, { useState, useEffect } from "react";
 import MovieCard from "./components/MovieCard";
+import Logo from "../public/logo.png";
+
 import { io } from "socket.io-client"; // Import socket.io client
 
 function App() {
+  const SERVER_IP = "192.168.1.100"; // Define the server IP address here
   const [movies, setMovies] = useState([]);
   const [currentMovie, setCurrentMovie] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredMovies, setFilteredMovies] = useState([]);
-  const [subtitleFile, setSubtitleFile] = useState(null); // Added subtitleFile state
+  const [subtitleFile, setSubtitleFile] = useState(null);
   const [subtitleUploaded, setSubtitleUploaded] = useState(false);
   const [subtitleName, setSubtitleName] = useState("");
-  const [socket, setSocket] = useState(null); // State to manage the socket
-  // socket connection
-  useEffect(() => {
-    // Initialize socket connection when the component mounts
-    const newSocket = io("http://localhost:3001");
-    setSocket(newSocket);
+  const [socket, setSocket] = useState(null);
 
-    // Clean up the socket connection when the component unmounts
+  useEffect(() => {
+    const newSocket = io(`http://${SERVER_IP}:3001`);
+    setSocket(newSocket);
     return () => newSocket.close();
   }, []);
 
   useEffect(() => {
     if (!socket) return;
-
-    // Handle real-time messages from the server
     socket.on("control-message", (data) => {
-      // Handle the real-time data here
       console.log("Received control message:", data);
     });
   }, [socket]);
+
   useEffect(() => {
-    fetch("http://localhost:3001/api/movies")
+    fetch(`http://${SERVER_IP}:3001/api/movies`)
       .then((response) => response.json())
       .then(async (movieList) => {
         const metadataPromises = movieList.map((movie) =>
           fetch(
-            `http://localhost:3001/api/movies/${encodeURIComponent(
+            `http://${SERVER_IP}:3001/api/movies/${encodeURIComponent(
               movie
             )}/metadata`
           ).then((res) => res.json())
@@ -61,13 +59,12 @@ function App() {
     setFilteredMovies(results);
   }
 
-  // Added subtitle conversion function
   function srtToVtt(srtContent) {
     const vttContent =
       "WEBVTT\n\n" + srtContent.replace(/(\d+)\,(\d+)/g, "$1.$2");
     return new Blob([vttContent], { type: "text/vtt" });
   }
-  // subtitle event handler start
+
   function handleSubtitleUpload(event) {
     const file = event.target.files[0];
     if (file) {
@@ -91,6 +88,7 @@ function App() {
       }
     }
   }
+
   useEffect(() => {
     return () => {
       if (subtitleFile) {
@@ -98,7 +96,7 @@ function App() {
       }
     };
   }, [subtitleFile]);
-  // subtitile event handler end
+
   return (
     <div className="container mx-auto px-4">
       <h1 className="text-4xl mt-10 mb-8 font-semibold">
@@ -122,7 +120,7 @@ function App() {
             key={movieData.name}
             title={movieData.name}
             duration={movieData.duration}
-            thumbnail={`http://localhost:3001/api/movies/${encodeURIComponent(
+            thumbnail={`http://${SERVER_IP}:3001/api/movies/${encodeURIComponent(
               movieData.name
             )}/thumbnail`}
             onClick={() => setCurrentMovie(movieData.name)}
@@ -135,16 +133,14 @@ function App() {
           <div className="absolute inset-0 bg-black opacity-50"></div>
           <div className="bg-gray-200 p-4 rounded-lg shadow-lg relative w-3/4 h-auto">
             <button
-              className="absolute top-[-10px] right-[-10px] bg-red-600 text-white px-2 py-1 rounded-full focus:outline-none"
+              className="absolute -top-[-10px] right-[-10px] bg-red-600 text-white px-4 py-2 rounded-full focus:outline-none"
               onClick={() => setCurrentMovie(null)}
             >
               ✖️
             </button>
             <h2 className="text-2xl mb-4">Now Playing: {currentMovie}</h2>
             <div className="flex items-center justify-between mt-4 space-x-4">
-              {" "}
-              {/* Updated layout */}
-              <label className="bg-indigo-500 text-white px-3 py-1 rounded cursor-pointer hover:bg-indigo-600">
+              <label className="bg-indigo-500 text-white px-3 py-1 rounded cursor-pointer hover:bg-indigo-600 mt-4 md:mt-0">
                 Upload Subtitle
                 <input
                   type="file"
@@ -170,7 +166,7 @@ function App() {
             <video
               controls
               width="100%"
-              src={`http://localhost:3001/api/movies/${encodeURIComponent(
+              src={`http://${SERVER_IP}:3001/api/movies/${encodeURIComponent(
                 currentMovie
               )}`}
               className="shadow-inner mt-4"
@@ -190,12 +186,12 @@ function App() {
       )}
 
       <div
-        className="sticky bottom-2 mx-auto w-12 h-12 md:h-12 md:w-12 bg-black rounded-full filter  grayscale-100
+        className="sticky bottom-1 mx-auto w-16 h-16 md:h-16 md:w-16 bg-black rounded-full filter  grayscale-100
               hover:bg-gray-500  transition-all duration-300 ease-in-out"
       >
         <img
-          className="w-12 h-12 md:h-12 md:w-12 object-contain rounded-full mx-auto"
-          src="https://github.com/sulimanbadour1/Sul_folio/blob/main/src/assets/logos/white.png?raw=true"
+          className="w-16 h-16 md:h-16 md:w-16 object-contain rounded-full mx-auto"
+          src={Logo}
           alt="logo"
         />
       </div>

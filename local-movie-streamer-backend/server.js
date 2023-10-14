@@ -211,8 +211,8 @@ io.on("connection", (socket) => {
   });
 });
 
-httpServer.listen(PORT, () => {
-  console.log(`Server started on http://localhost:${PORT}`);
+httpServer.listen(PORT, "192.168.1.100", () => {
+  console.log(`Server started on http://192.168.1.100:${PORT}`);
 });
 
 // app.listen(PORT, () => {
