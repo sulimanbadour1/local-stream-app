@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MovieCard from "./components/MovieCard";
+import { io } from "socket.io-client"; // Import socket.io client
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -9,7 +10,26 @@ function App() {
   const [subtitleFile, setSubtitleFile] = useState(null); // Added subtitleFile state
   const [subtitleUploaded, setSubtitleUploaded] = useState(false);
   const [subtitleName, setSubtitleName] = useState("");
+  const [socket, setSocket] = useState(null); // State to manage the socket
+  // socket connection
+  useEffect(() => {
+    // Initialize socket connection when the component mounts
+    const newSocket = io("http://localhost:3001");
+    setSocket(newSocket);
 
+    // Clean up the socket connection when the component unmounts
+    return () => newSocket.close();
+  }, []);
+
+  useEffect(() => {
+    if (!socket) return;
+
+    // Handle real-time messages from the server
+    socket.on("control-message", (data) => {
+      // Handle the real-time data here
+      console.log("Received control message:", data);
+    });
+  }, [socket]);
   useEffect(() => {
     fetch("http://localhost:3001/api/movies")
       .then((response) => response.json())

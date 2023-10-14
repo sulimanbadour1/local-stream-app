@@ -6,7 +6,8 @@ import ffmpeg from "fluent-ffmpeg";
 import chokidar from "chokidar";
 import cors from "cors";
 import recursiveReaddir from "recursive-readdir";
-
+import { Server } from "socket.io"; // Importing socket.io
+import { createServer } from "http";
 // App setup
 
 const app = express();
@@ -186,6 +187,34 @@ watcher
     }
   });
 
-app.listen(PORT, () => {
+// Socket setup
+// Setting up the HTTP server and attaching socket.io
+const httpServer = createServer(app);
+const io = new Server(httpServer, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log("A user connected:", socket.id);
+
+  // Handle messages from clients
+  socket.on("control-message", (data) => {
+    // Broadcast the message to all other clients
+    socket.broadcast.emit("control-message", data);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("A user disconnected:", socket.id);
+  });
+});
+
+httpServer.listen(PORT, () => {
   console.log(`Server started on http://localhost:${PORT}`);
 });
+
+// app.listen(PORT, () => {
+//   console.log(`Server started on http://localhost:${PORT}`);
+// });
