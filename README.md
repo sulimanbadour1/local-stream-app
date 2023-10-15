@@ -1,11 +1,13 @@
+[![wakatime](https://wakatime.com/badge/user/d7fffb39-631e-454c-9cce-bb60e92d14c5/project/018b20f9-a76c-4861-a606-5f22ee83109d.svg)](https://wakatime.com/badge/user/d7fffb39-631e-454c-9cce-bb60e92d14c5/project/018b20f9-a76c-4861-a606-5f22ee83109d)
+
 # Local Movie Streamer
 
 <!--
-<img src="https://github.com/sulimanbadour1/local-stream-app/blob/main/screenshots/app.gif?raw=true" width="400px"/> -->
+<img src="https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/v3.gif?raw=true" width="400px"/> -->
 
 Stream your local movies through a beautiful web interface. Local Movie Streamer allows you to search through your movie collection, watch them, and even add subtitles!
 
-![Demo Image](https://github.com/sulimanbadour1/local-stream-app/blob/main/screenshots/app.gif?raw=true)
+![Demo Image](https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/v3.gif?raw=true)
 
 ## Features
 

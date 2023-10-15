@@ -8,12 +8,16 @@ import cors from "cors";
 import recursiveReaddir from "recursive-readdir";
 import { Server } from "socket.io"; // Importing socket.io
 import { createServer } from "http";
+
+// Create an array to store connected clients
+const connectedClients = [];
+
 // App setup
 
 const app = express();
 const PORT = 3001;
 const movieDirectory =
-  "C:\\Users\\jafer\\Desktop\\react_js_projects\\local-media\\movies";
+  "C:\\Users\\jafer\\Desktop\\react_js_projects\\local-media\\movies"; // Change this to your movie directory
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -200,21 +204,36 @@ const io = new Server(httpServer, {
 io.on("connection", (socket) => {
   console.log("A user connected:", socket.id);
 
+  // Add the connected client to the array
+  connectedClients.push(socket);
+
   // Handle messages from clients
   socket.on("control-message", (data) => {
-    // Broadcast the message to all other clients
-    socket.broadcast.emit("control-message", data);
+    // Check if the command is 'toggle-fullscreen'
+    if (data.command === "toggle-fullscreen") {
+      // Broadcast the command to all connected clients except the sender
+      socket.broadcast.emit("toggle-fullscreen");
+    } else {
+      // Broadcast the general control message to all connected clients except the sender
+      socket.broadcast.emit("control-message", data);
+    }
   });
 
   socket.on("disconnect", () => {
     console.log("A user disconnected:", socket.id);
+
+    // Remove the disconnected client from the array
+    const index = connectedClients.indexOf(socket);
+    if (index !== -1) {
+      connectedClients.splice(index, 1);
+    }
   });
 });
+
+// httpServer.listen(PORT, () => {
+//   console.log(`Server started on http://localhost:${PORT}`);
+// });
 
 httpServer.listen(PORT, process.env.IP_ADDRESS, () => {
   console.log(`Server started on http://${process.env.IP_ADDRESS}:${PORT}`);
 });
-
-// app.listen(PORT, () => {
-//   console.log(`Server started on http://localhost:${PORT}`);
-// });

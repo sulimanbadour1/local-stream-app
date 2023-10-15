@@ -8,7 +8,7 @@ function MovieCard({ title, duration, thumbnail, onClick }) {
 
   return (
     <article // Use semantic HTML
-      className="p-4 cursor-pointer w-44 md:w-80 border-2 border-gray-400 hover:border-gray-600 transition duration-150 rounded-md shadow-lg"
+      className="p-4 cursor-pointer bg-white/10 w-44 md:w-80 border-1 border-gray-400 hover:border-gray-800 transition duration-150 rounded-lg shadow-2xl"
       onClick={onClick}
       tabIndex="0" // make it keyboard accessible
       onKeyDown={(e) => {
@@ -17,7 +17,7 @@ function MovieCard({ title, duration, thumbnail, onClick }) {
         }
       }}
     >
-      <figure className="relative rounded-md overflow-hidden">
+      <figure className="relative rounded-sm overflow-hidden">
         <img
           className="h-full md:h-64 object-fill"
           src={thumbnail}
@@ -30,13 +30,13 @@ function MovieCard({ title, duration, thumbnail, onClick }) {
           loading="lazy" // lazy loading
         />
         <figcaption className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-30 hover:opacity-70 transition-opacity duration-300">
-          <span className="text-lg md:text-5xl text-white transform hover:scale-110 transition-transform duration-300">
+          <span className="text-lg md:text-4xl text-white transform hover:scale-110 transition-transform duration-300">
             ▶️
           </span>
         </figcaption>
       </figure>
-      <h2 className="text-sm md:text-xl font-normal md:font-bold mt-4 mb-1 border-b border-gray-300 pb-1">
-        {title}
+      <h2 className="text-xs md:text-lg font-normal md:font-bold mt-4 mb-1 border-b border-gray-300 pb-1">
+        {title.split("\\").pop()}
       </h2>
       <div className="border-r border-gray-300 my-2"></div>
       <p className="mt-1 text-xs md:text-xl">{`Duration : ${formattedDuration}`}</p>
