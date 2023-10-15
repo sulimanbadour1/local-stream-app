@@ -228,6 +228,6 @@ httpServer.listen(PORT, () => {
   console.log(`Server started on http://localhost:${PORT}`);
 });
 
-// app.listen(PORT, () => {
-//   console.log(`Server started on http://localhost:${PORT}`);
-// });
+// httpServer.listen(PORT, process.env.IP_ADDRESS, () => {
+//   console.log(`Server started on http://${process.env.IP_ADDRESS}:${PORT}`);
+// })

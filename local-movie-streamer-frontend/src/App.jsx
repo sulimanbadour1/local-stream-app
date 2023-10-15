@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import MovieCard from "./components/MovieCard";
+// import MovieCard from "./components/MovieCard";
+// import Card1 from "./components/Card1";
 import Logo from "../public/logo.png";
 import Play from "../src/assets/icons/play.png";
 import Pause from "../src/assets/icons/pause.png";
@@ -8,8 +9,12 @@ import VolumeDown from "../src/assets/icons/down.png";
 import Close from "../src/assets/icons/close.png";
 
 import { io } from "socket.io-client"; // Import socket.io client
-import Card1 from "./components/Card1";
+
 import Card2 from "./components/Card2";
+/* IP config */
+// const SERVER_IP = "192.168.1.100"; // Define the server IP address here
+// const SERVER_IP = `localhost`; // Define the server IP address here
+/* IP config */
 
 function App() {
   const SERVER_IP = `localhost`; // Define the server IP address here
