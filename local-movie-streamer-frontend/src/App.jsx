@@ -1,23 +1,18 @@
-import React, { useState, useEffect } from "react";
-// import MovieCard from "./components/MovieCard";
-// import Card1 from "./components/Card1";
+import React, { useState, useEffect, useRef } from "react";
 import Logo from "../public/logo.png";
 import Play from "../src/assets/icons/play.png";
 import Pause from "../src/assets/icons/pause.png";
 import VolumeUp from "../src/assets/icons/up.png";
 import VolumeDown from "../src/assets/icons/down.png";
 import Close from "../src/assets/icons/close.png";
-
-import { io } from "socket.io-client"; // Import socket.io client
-
+import Cast from "../src/assets/icons/broadcast.png";
+import fullscreen from "../src/assets/icons/fullscreen.png";
+import { io } from "socket.io-client";
 import Card2 from "./components/Card2";
-/* IP config */
-// const SERVER_IP = "192.168.1.100"; // Define the server IP address here
-// const SERVER_IP = `localhost`; // Define the server IP address here
-/* IP config */
 
 function App() {
-  const SERVER_IP = `localhost`; // Define the server IP address here
+  // change the IP address to your local IP address
+  const SERVER_IP = "192.168.1.100";
   const [movies, setMovies] = useState([]);
   const [currentMovie, setCurrentMovie] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -26,6 +21,9 @@ function App() {
   const [subtitleUploaded, setSubtitleUploaded] = useState(false);
   const [subtitleName, setSubtitleName] = useState("");
   const [socket, setSocket] = useState(null);
+  const videoRef = useRef(null); // Reference to the video element
+
+  // set up socket connection
 
   useEffect(() => {
     const newSocket = io(`http://${SERVER_IP}:3001`);
@@ -33,38 +31,37 @@ function App() {
     return () => newSocket.close();
   }, []);
 
-  // Handle control messages
-
   useEffect(() => {
     if (!socket) return;
     socket.on("control-message", (data) => {
-      // Handle control messages
       switch (data.command) {
         case "play":
-          // Play the video
           document.querySelector("video").play();
           break;
         case "pause":
-          // Pause the video
           document.querySelector("video").pause();
           break;
         case "close":
-          // Close the current movie
           setCurrentMovie(null);
           break;
         case "volume-up":
-          // Increase the volume
           const videoElement = document.querySelector("video");
           if (videoElement.volume < 1) {
             videoElement.volume += 0.1;
           }
           break;
         case "volume-down":
-          // Decrease the volume
           const video = document.querySelector("video");
           if (video.volume > 0) {
             video.volume -= 0.1;
           }
+          break;
+        case "open-player":
+          const requestedMovie = data.movieName;
+          setCurrentMovie(requestedMovie);
+          break;
+        case "toggle-fullscreen":
+          toggleFullScreen();
           break;
         default:
           break;
@@ -140,12 +137,30 @@ function App() {
       }
     };
   }, [subtitleFile]);
-  const sendControlCommand = (command) => {
+
+  // Function to send control commands to the server
+  const sendControlCommand = (command, data) => {
     if (socket) {
-      socket.emit("control-message", { command });
+      socket.emit("control-message", { command, ...data });
     }
   };
 
+  // Function to open the video player on the remote device
+  const openVideoPlayerOnRemote = (movieName) => {
+    sendControlCommand("open-player", { movieName });
+  };
+
+  // Function to toggle fullscreen
+  function toggleFullScreen() {
+    const videoElement = document.querySelector("video");
+    if (!document.fullscreenElement) {
+      videoElement.requestFullscreen();
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+  }
   return (
     <main className="min-h-screen">
       <div className="container mx-auto px-8 max-w-7xl max-h-screen">
@@ -178,7 +193,10 @@ function App() {
               thumbnail={`http://${SERVER_IP}:3001/api/movies/${encodeURIComponent(
                 movieData.name
               )}/thumbnail`}
-              onClick={() => setCurrentMovie(movieData.name)}
+              onClick={() => {
+                setCurrentMovie(movieData.name); // Open locally
+              }}
+              onPlayRemote={() => openVideoPlayerOnRemote(movieData.name)}
             />
           ))}
         </div>
@@ -229,6 +247,7 @@ function App() {
                 )}
               </div>
               <video
+                ref={videoRef} // Use the same video element for both devices
                 controls
                 width="100%"
                 src={`http://${SERVER_IP}:3001/api/movies/${encodeURIComponent(
@@ -247,38 +266,67 @@ function App() {
                   />
                 )}
               </video>
-              <div className="flex items-center justify-center gap-2 mt-4 mb-4 ">
-                <button
-                  onClick={() => sendControlCommand("pause")}
-                  className="bg-black text-white px-3 py-1 rounded cursor-pointer hover:bg-slate-500 mt-4 md:mt-0"
-                >
-                  <img src={Pause} alt="pause" className="w-6 h-6" />
-                </button>
-                <button
-                  onClick={() => sendControlCommand("play")}
-                  className="bg-black text-white px-3 py-1 rounded cursor-pointer hover:bg-slate-500 mt-4 md:mt-0"
-                >
-                  <img src={Play} alt="play" className="w-6 h-6" />
-                </button>
+              <div>
+                <p className="text-sm flex items-center text-center justify-center md:text-2xl p-2">
+                  Remote Control{" "}
+                </p>
+                <span className="text-xs flex font-bold items-center uppercase text-center justify-center pb-2">
+                  {" "}
+                  Control client B
+                </span>
+                <div className="flex items-center justify-center gap-2 mt-4 mb-4 ">
+                  <button
+                    onClick={() => openVideoPlayerOnRemote(currentMovie)}
+                    className="bg-black text-white px-3 py-1 rounded cursor-pointer hover:bg-slate-500 mt-4 md:mt-0"
+                  >
+                    <img src={Cast} alt="broadcast" className="w-6 h-6" />
+                  </button>
+                  <button
+                    onClick={() => sendControlCommand("pause")}
+                    className="bg-black text-white px-3 py-1 rounded cursor-pointer hover:bg-slate-500 mt-4 md:mt-0"
+                  >
+                    <img src={Pause} alt="pause" className="w-6 h-6" />
+                  </button>
+                  <button
+                    onClick={() => sendControlCommand("play")}
+                    className="bg-black text-white px-3 py-1 rounded cursor-pointer hover:bg-slate-500 mt-4 md:mt-0"
+                  >
+                    <img src={Play} alt="play" className="w-6 h-6" />
+                  </button>
 
-                <button
-                  onClick={() => sendControlCommand("volume-down")}
-                  className="bg-black text-white px-3 py-1 rounded cursor-pointer hover:bg-slate-500 mt-4 md:mt-0"
-                >
-                  <img src={VolumeDown} alt="volume-down" className="w-6 h-6" />
-                </button>
-                <button
-                  onClick={() => sendControlCommand("volume-up")}
-                  className="bg-black text-white px-3 py-1 rounded cursor-pointer hover:bg-slate-500 mt-4 md:mt-0"
-                >
-                  <img src={VolumeUp} alt="volume-up" className="w-6 h-6" />
-                </button>
-                <button
-                  onClick={() => sendControlCommand("close")}
-                  className="bg-red-600 text-white px-3 py-1 rounded cursor-pointer hover:bg-red-700 mt-4 md:mt-0"
-                >
-                  <img src={Close} alt="close" className="w-6 h-6" />
-                </button>
+                  <button
+                    onClick={() => sendControlCommand("volume-down")}
+                    className="bg-black text-white px-3 py-1 rounded cursor-pointer hover:bg-slate-500 mt-4 md:mt-0"
+                  >
+                    <img
+                      src={VolumeDown}
+                      alt="volume-down"
+                      className="w-6 h-6"
+                    />
+                  </button>
+                  <button
+                    onClick={() => sendControlCommand("volume-up")}
+                    className="bg-black text-white px-3 py-1 rounded cursor-pointer hover:bg-slate-500 mt-4 md:mt-0"
+                  >
+                    <img src={VolumeUp} alt="volume-up" className="w-6 h-6" />
+                  </button>
+                  <button
+                    onClick={() => sendControlCommand("close")}
+                    className="bg-red-600 text-white px-3 py-1 rounded cursor-pointer hover:bg-red-700 mt-4 md:mt-0"
+                  >
+                    <img src={Close} alt="close" className="w-6 h-6" />
+                  </button>
+                  <button
+                    onClick={() => sendControlCommand("toggle-fullscreen")}
+                    className="bg-black text-white px-3 py-1 rounded cursor-pointer hover:bg-slate-500 mt-4 md:mt-0"
+                  >
+                    <img
+                      src={fullscreen}
+                      alt="fullscreen"
+                      className="w-6 h-6"
+                    />
+                  </button>
+                </div>
               </div>
             </div>
           </div>

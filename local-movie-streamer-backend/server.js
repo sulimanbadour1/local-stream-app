@@ -209,8 +209,14 @@ io.on("connection", (socket) => {
 
   // Handle messages from clients
   socket.on("control-message", (data) => {
-    // Broadcast the control message to all connected clients except the sender
-    socket.broadcast.emit("control-message", data);
+    // Check if the command is 'toggle-fullscreen'
+    if (data.command === "toggle-fullscreen") {
+      // Broadcast the command to all connected clients except the sender
+      socket.broadcast.emit("toggle-fullscreen");
+    } else {
+      // Broadcast the general control message to all connected clients except the sender
+      socket.broadcast.emit("control-message", data);
+    }
   });
 
   socket.on("disconnect", () => {
@@ -224,10 +230,10 @@ io.on("connection", (socket) => {
   });
 });
 
-httpServer.listen(PORT, () => {
-  console.log(`Server started on http://localhost:${PORT}`);
-});
+// httpServer.listen(PORT, () => {
+//   console.log(`Server started on http://localhost:${PORT}`);
+// });
 
-// httpServer.listen(PORT, process.env.IP_ADDRESS, () => {
-//   console.log(`Server started on http://${process.env.IP_ADDRESS}:${PORT}`);
-// })
+httpServer.listen(PORT, process.env.IP_ADDRESS, () => {
+  console.log(`Server started on http://${process.env.IP_ADDRESS}:${PORT}`);
+});

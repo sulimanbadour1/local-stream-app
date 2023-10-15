@@ -1,6 +1,6 @@
 import React from "react";
-
-const Card2 = ({ title, duration, thumbnail, onClick }) => {
+import Cast from "../assets/icons/broadcast.png";
+const Card2 = ({ title, duration, thumbnail, onClick, onPlayRemote }) => {
   const formattedDuration = new Date(duration * 1000)
     .toISOString()
     .substr(11, 8);
@@ -55,6 +55,15 @@ const Card2 = ({ title, duration, thumbnail, onClick }) => {
             <p className="text-gray-500 text-xs w-64 font-semibold md:w-90">
               {title.split("\\").pop()}
             </p>
+            {/* <div className="flex items-center justify-start p-2 ">
+              <button
+                onClick={onPlayRemote}
+                className="mt-4 bg-black text-white px-4 py-2 rounded 
+              hover:bg-blue-600 transition-colors duration-200"
+              >
+                <img src={Cast} alt="cast" className="w-6 h-6" />
+              </button>
+            </div> */}
           </div>
         </card>
       </div>
