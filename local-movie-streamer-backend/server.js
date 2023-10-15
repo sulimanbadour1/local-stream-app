@@ -17,7 +17,7 @@ const connectedClients = [];
 const app = express();
 const PORT = 3001;
 const movieDirectory =
-  "C:\\Users\\jafer\\Desktop\\react_js_projects\\local-media\\movies";
+  "C:\\Users\\jafer\\Desktop\\react_js_projects\\local-media\\movies"; // Change this to your movie directory
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
