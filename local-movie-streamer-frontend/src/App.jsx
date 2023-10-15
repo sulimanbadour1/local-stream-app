@@ -316,7 +316,7 @@ function App() {
                   >
                     <img src={Close} alt="close" className="w-6 h-6" />
                   </button>
-                  <button
+                  {/* <button
                     onClick={() => sendControlCommand("toggle-fullscreen")}
                     className="bg-black text-white px-3 py-1 rounded cursor-pointer hover:bg-slate-500 mt-4 md:mt-0"
                   >
@@ -325,7 +325,7 @@ function App() {
                       alt="fullscreen"
                       className="w-6 h-6"
                     />
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </div>
