@@ -12,7 +12,8 @@ import Card2 from "./components/Card2";
 
 function App() {
   // change the IP address to your local IP address
-  const SERVER_IP = "192.168.1.100";
+  // const SERVER_IP = "192.168.1.100";
+  const SERVER_IP = import.meta.env.VITE_IP_ADDRESS;
   const [movies, setMovies] = useState([]);
   const [currentMovie, setCurrentMovie] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
