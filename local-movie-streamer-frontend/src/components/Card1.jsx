@@ -13,10 +13,10 @@ const Card1 = ({ title, duration, thumbnail, onClick }) => {
           onClick();
         }
       }}
-      class="flex items-center justify-self-center p-4 cursor-pointer bg-slate-200 w-44 md:w-80 border-1 border-gray-400 hover:border-gray-800 transition duration-150 rounded-lg shadow-xl"
+      class="flex items-center p-2 cursor-pointer bg-slate-200 w-44 md:w-80 border- border-gray-400 hover:border-gray-800 transition duration-150 rounded-lg shadow-xl"
     >
       <div class="col-span-12 sm:col-span-2 md:col-span-3 p-2 mx-auto">
-        <card class="w-full flex flex-col">
+        <div class="w-full flex flex-col">
           <div class="relative mx-auto">
             <figure className="relative rounded-sm overflow-hidden">
               <img
@@ -48,7 +48,7 @@ const Card1 = ({ title, duration, thumbnail, onClick }) => {
               </p>
             </div>
           </div>
-        </card>
+        </div>
       </div>
     </article>
   );
