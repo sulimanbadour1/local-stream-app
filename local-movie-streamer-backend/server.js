@@ -8,6 +8,10 @@ import cors from "cors";
 import recursiveReaddir from "recursive-readdir";
 import { Server } from "socket.io"; // Importing socket.io
 import { createServer } from "http";
+
+// Create an array to store connected clients
+const connectedClients = [];
+
 // App setup
 
 const app = express();
@@ -200,19 +204,28 @@ const io = new Server(httpServer, {
 io.on("connection", (socket) => {
   console.log("A user connected:", socket.id);
 
+  // Add the connected client to the array
+  connectedClients.push(socket);
+
   // Handle messages from clients
   socket.on("control-message", (data) => {
-    // Broadcast the message to all other clients
+    // Broadcast the control message to all connected clients except the sender
     socket.broadcast.emit("control-message", data);
   });
 
   socket.on("disconnect", () => {
     console.log("A user disconnected:", socket.id);
+
+    // Remove the disconnected client from the array
+    const index = connectedClients.indexOf(socket);
+    if (index !== -1) {
+      connectedClients.splice(index, 1);
+    }
   });
 });
 
-httpServer.listen(PORT, process.env.IP_ADDRESS, () => {
-  console.log(`Server started on http://${process.env.IP_ADDRESS}:${PORT}`);
+httpServer.listen(PORT, () => {
+  console.log(`Server started on http://localhost:${PORT}`);
 });
 
 // app.listen(PORT, () => {

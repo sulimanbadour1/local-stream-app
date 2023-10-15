@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
 import MovieCard from "./components/MovieCard";
 import Logo from "../public/logo.png";
+import Play from "../src/assets/icons/play.png";
+import Pause from "../src/assets/icons/pause.png";
+import VolumeUp from "../src/assets/icons/up.png";
+import VolumeDown from "../src/assets/icons/down.png";
+import Close from "../src/assets/icons/close.png";
 
 import { io } from "socket.io-client"; // Import socket.io client
+import Card1 from "./components/Card1";
 
 function App() {
-  const SERVER_IP = "192.168.1.100"; // Define the server IP address here
+  const SERVER_IP = `localhost`; // Define the server IP address here
   const [movies, setMovies] = useState([]);
   const [currentMovie, setCurrentMovie] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -21,10 +27,42 @@ function App() {
     return () => newSocket.close();
   }, []);
 
+  // Handle control messages
+
   useEffect(() => {
     if (!socket) return;
     socket.on("control-message", (data) => {
-      console.log("Received control message:", data);
+      // Handle control messages
+      switch (data.command) {
+        case "play":
+          // Play the video
+          document.querySelector("video").play();
+          break;
+        case "pause":
+          // Pause the video
+          document.querySelector("video").pause();
+          break;
+        case "close":
+          // Close the current movie
+          setCurrentMovie(null);
+          break;
+        case "volume-up":
+          // Increase the volume
+          const videoElement = document.querySelector("video");
+          if (videoElement.volume < 1) {
+            videoElement.volume += 0.1;
+          }
+          break;
+        case "volume-down":
+          // Decrease the volume
+          const video = document.querySelector("video");
+          if (video.volume > 0) {
+            video.volume -= 0.1;
+          }
+          break;
+        default:
+          break;
+      }
     });
   }, [socket]);
 
@@ -96,6 +134,11 @@ function App() {
       }
     };
   }, [subtitleFile]);
+  const sendControlCommand = (command) => {
+    if (socket) {
+      socket.emit("control-message", { command });
+    }
+  };
 
   return (
     <div className="container mx-auto px-4">
@@ -114,9 +157,11 @@ function App() {
           🔍
         </span>
       </div>
-      <div className={`flex flex-wrap gap-6 ${currentMovie ? "blur-md" : ""}`}>
+      <div
+        className={`flex flex-wrap pl-1 gap-2 ${currentMovie ? "blur-md" : ""}`}
+      >
         {filteredMovies.map((movieData) => (
-          <MovieCard
+          <Card1
             key={movieData.name}
             title={movieData.name}
             duration={movieData.duration}
@@ -131,16 +176,20 @@ function App() {
       {currentMovie && (
         <div className="fixed inset-0 flex items-center justify-center z-50">
           <div className="absolute inset-0 bg-black opacity-50"></div>
-          <div className="bg-gray-200 p-4 rounded-lg shadow-lg relative w-3/4 h-auto">
+          <div className="bg-white/60 p-4 rounded-lg shadow-lg relative w-3/4 h-auto">
             <button
-              className="absolute -top-[-10px] right-[-10px] bg-red-600 text-white px-4 py-2 rounded-full focus:outline-none"
+              className="absolute top-[-20px] right-[-30px] bg-red-600 text-white px-3 py-1.5 rounded-lg focus:outline-none 
+              cursor-pointer hover:bg-red-800 "
               onClick={() => setCurrentMovie(null)}
             >
-              ✖️
+              <img src={Close} alt="close" className="w-8 h-8" />
             </button>
-            <h2 className="text-2xl mb-4">Now Playing: {currentMovie}</h2>
-            <div className="flex items-center justify-between mt-4 space-x-4">
-              <label className="bg-indigo-500 text-white px-3 py-1 rounded cursor-pointer hover:bg-indigo-600 mt-4 md:mt-0">
+
+            <h2 className="text-lg font-semibold md:text-2xl mb-4 mt-1">
+              Now Playing: {currentMovie.split("\\").pop()}
+            </h2>
+            <div className="flex items-center justify-center mt-4 space-x-4">
+              <label className="bg-black text-white px-4 py-2 rounded cursor-pointer hover:bg-slate-500 mt-4 md:mt-0">
                 Upload Subtitle
                 <input
                   type="file"
@@ -153,7 +202,7 @@ function App() {
                 href="https://subscene.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-green-600 text-white px-3 py-1 rounded cursor-pointer hover:bg-green-800 mt-4 md:mt-0"
+                className="bg-black text-white px-4 py-2 rounded cursor-pointer hover:bg-slate-500 mt-4 md:mt-0"
               >
                 Download Subtitle
               </a>
@@ -169,7 +218,7 @@ function App() {
               src={`http://${SERVER_IP}:3001/api/movies/${encodeURIComponent(
                 currentMovie
               )}`}
-              className="shadow-inner mt-4"
+              className="shadow-inner mt-4 justify-center items-center flex mx-auto w-1/2 "
             >
               {subtitleFile && (
                 <track
@@ -181,16 +230,49 @@ function App() {
                 />
               )}
             </video>
+            <div className="flex items-center justify-center gap-2 mt-4 mb-4 ">
+              <button
+                onClick={() => sendControlCommand("pause")}
+                className="bg-black text-white px-3 py-1 rounded cursor-pointer hover:bg-slate-500 mt-4 md:mt-0"
+              >
+                <img src={Pause} alt="pause" className="w-6 h-6" />
+              </button>
+              <button
+                onClick={() => sendControlCommand("play")}
+                className="bg-black text-white px-3 py-1 rounded cursor-pointer hover:bg-slate-500 mt-4 md:mt-0"
+              >
+                <img src={Play} alt="play" className="w-6 h-6" />
+              </button>
+
+              <button
+                onClick={() => sendControlCommand("volume-down")}
+                className="bg-black text-white px-3 py-1 rounded cursor-pointer hover:bg-slate-500 mt-4 md:mt-0"
+              >
+                <img src={VolumeDown} alt="volume-down" className="w-6 h-6" />
+              </button>
+              <button
+                onClick={() => sendControlCommand("volume-up")}
+                className="bg-black text-white px-3 py-1 rounded cursor-pointer hover:bg-slate-500 mt-4 md:mt-0"
+              >
+                <img src={VolumeUp} alt="volume-up" className="w-6 h-6" />
+              </button>
+              <button
+                onClick={() => sendControlCommand("close")}
+                className="bg-red-600 text-white px-3 py-1 rounded cursor-pointer hover:bg-red-700 mt-4 md:mt-0"
+              >
+                <img src={Close} alt="close" className="w-6 h-6" />
+              </button>
+            </div>
           </div>
         </div>
       )}
 
       <div
-        className="sticky bottom-1 mx-auto w-16 h-16 md:h-16 md:w-16 bg-black rounded-full filter  grayscale-100
+        className="sticky bottom-1 mx-auto w-10 h-10 md:h-16 md:w-16 bg-black rounded-full filter  grayscale-100
               hover:bg-gray-500  transition-all duration-300 ease-in-out"
       >
         <img
-          className="w-16 h-16 md:h-16 md:w-16 object-contain rounded-full mx-auto"
+          className="w-10 h-10 md:h-16 md:w-16 object-contain rounded-full mx-auto"
           src={Logo}
           alt="logo"
         />
