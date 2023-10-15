@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import Logo from "../public/logo.png";
+import Logo from "../src/assets/logo.png";
 import Play from "../src/assets/icons/play.png";
 import Pause from "../src/assets/icons/pause.png";
 import VolumeUp from "../src/assets/icons/up.png";

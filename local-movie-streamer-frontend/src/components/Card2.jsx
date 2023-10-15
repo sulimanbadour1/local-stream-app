@@ -16,7 +16,7 @@ const Card2 = ({ title, duration, thumbnail, onClick, onPlayRemote }) => {
         }}
         className="col-span-12 sm:col-span-6 md:col-span-3 m-2 justify-center items-center"
       >
-        <card className="w-64 h-80 overflow-hidden">
+        <div className="w-64 h-80 overflow-hidden">
           {" "}
           {/* Fixed width and height */}
           <div className="relative w-64 md:w-90">
@@ -65,7 +65,7 @@ const Card2 = ({ title, duration, thumbnail, onClick, onPlayRemote }) => {
               </button>
             </div> */}
           </div>
-        </card>
+        </div>
       </div>
     </article>
   );
