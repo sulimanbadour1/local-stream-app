@@ -4,7 +4,7 @@
 
 Stream your local movies through a beautiful web interface. Local Movie Streamer allows you to search through your movie collection, watch them, and even add subtitles!
 
-![Demo Image](https://github.com/sulimanbadour1/local-stream-app/blob/v1.0/screenshots/v3.gif?raw=true)
+![Demo Image](https://github.com/sulimanbadour1/local-stream-app/blob/main/screenshots/v3.gif?raw=true)
 
 ## Features
 
