@@ -9,6 +9,7 @@ import recursiveReaddir from "recursive-readdir";
 import { Server } from "socket.io"; // Importing socket.io
 import { createServer } from "http";
 import authRoutes from "./routes/authRoutes.js";
+import dotenv from "dotenv";
 
 // Create an array to store connected clients
 const connectedClients = [];
@@ -235,7 +236,6 @@ io.on("connection", (socket) => {
 //   console.log(`Server started on http://localhost:${PORT}`);
 // });
 // Version 2
-app.use("/", authRoutes);
 
 httpServer.listen(PORT, process.env.IP_ADDRESS, () => {
   console.log(`Server started on http://${process.env.IP_ADDRESS}:${PORT}`);

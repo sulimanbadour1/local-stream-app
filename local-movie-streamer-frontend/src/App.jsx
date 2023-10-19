@@ -4,6 +4,8 @@ import Navbar from "./components/Navbar";
 import Login from "../src/pages/Login";
 import Register from "../src/pages/Register";
 import Footer from "./components/Footer";
+import axios from "axios";
+
 function App() {
   return (
     <>

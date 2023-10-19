@@ -8,7 +8,8 @@ const router = express.Router();
 router.use(
   cors({
     credentials: true,
-    origin: `http://${process.env.IP_ADDRESS}:5173`,
+    // origin: `http://${process.env.IP_ADDRESS}:5173`,
+    origin: "http://localhost:5173",
   })
 );
 

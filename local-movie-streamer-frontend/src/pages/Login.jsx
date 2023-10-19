@@ -1,14 +1,23 @@
 import React, { useState } from "react";
-
+import axios from "axios";
 export default function Login() {
   const [data, setData] = useState({
     email: "",
     password: "",
   });
-
+  const SERVER_IP = import.meta.env.VITE_IP_ADDRESS;
+  const SERVER_URL = `http://${SERVER_IP}:5173`;
   // Login user
   const loginUser = (e) => {
     e.preventDefault();
+    axios
+      .get(`http://${SERVER_IP}:5173/`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
   };
   return (
     <div>
@@ -27,7 +36,7 @@ export default function Login() {
                   <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-sm sm:leading-7">
                     <div className="relative">
                       <input
-                        autocomplete="off"
+                        autoComplete="off"
                         id="email"
                         name="email"
                         type="email"
@@ -39,7 +48,7 @@ export default function Login() {
                         }
                       />
                       <label
-                        for="email"
+                        htmlFor="email"
                         className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
                       >
                         Email
@@ -47,7 +56,7 @@ export default function Login() {
                     </div>
                     <div className="relative">
                       <input
-                        autocomplete="off"
+                        autoComplete="off"
                         id="password"
                         name="password"
                         type="password"
@@ -59,7 +68,7 @@ export default function Login() {
                         }
                       />
                       <label
-                        for="password"
+                        htmlFor="password"
                         className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
                       >
                         Password
