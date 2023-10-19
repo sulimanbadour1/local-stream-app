@@ -8,7 +8,7 @@ export default function Footer() {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   };
   return (
-    <div className="max-h-screen mt-16">
+    <div className="max-h-full">
       <footer className="fixed bottom-0 left-0 w-full bg-neutral-100 text-center text-neutral-600 dark:bg-neutral-600 dark:text-neutral-200">
         <div
           className="mx-auto w-10 h-10 md:h-12 md:w-12 bg-black rounded-full filter  grayscale-100

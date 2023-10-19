@@ -1,6 +1,12 @@
 import React from "react";
+import { useState } from "react";
 
 export default function Register() {
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
   // Register user
   const registerUser = (e) => {
     e.preventDefault();
@@ -9,17 +15,17 @@ export default function Register() {
   // Return the JSX
   return (
     <div>
-      <form onSubmit={registerUser}>
-        <div className="max-h-screen py-6 flex flex-col justify-center sm:py-24 md:-mt-16 z-10">
-          <div className="relative py-3 max-w-xl sm:mx-auto">
-            <div className="absolute inset-0 bg-gradient-to-r from-gray-600 to-gray-300 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-2xl"></div>
-            <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-24">
-              <div className="max-w-md mx-auto">
-                <div>
-                  <h1 className="text-xl font-normal md:font-semibold md:text-2xl">
-                    Get your account 🎥
-                  </h1>
-                </div>
+      <div className="max-h-screen py-6 flex flex-col justify-center sm:py-24 md:-mt-16 z-10">
+        <div className="relative py-3 max-w-xl sm:mx-auto">
+          <div className="absolute inset-0 bg-gradient-to-r from-gray-600 to-gray-300 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-2xl"></div>
+          <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-24">
+            <div className="max-w-md mx-auto">
+              <div>
+                <h1 className="text-xl font-normal md:font-semibold md:text-2xl">
+                  Get your account 🎥
+                </h1>
+              </div>
+              <form onSubmit={registerUser}>
                 <div className="divide-y divide-gray-200">
                   <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-sm sm:leading-7">
                     <div className="relative">
@@ -30,6 +36,10 @@ export default function Register() {
                         type="text"
                         className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
                         placeholder="Name"
+                        value={data.name}
+                        onChange={(e) =>
+                          setData({ ...data, name: e.target.value })
+                        }
                       />
                       <label
                         for="name"
@@ -46,6 +56,10 @@ export default function Register() {
                         type="email"
                         className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
                         placeholder="email"
+                        value={data.email}
+                        onChange={(e) =>
+                          setData({ ...data, email: e.target.value })
+                        }
                       />
                       <label
                         for="email"
@@ -62,6 +76,10 @@ export default function Register() {
                         type="password"
                         className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
                         placeholder="password"
+                        value={data.password}
+                        onChange={(e) =>
+                          setData({ ...data, password: e.target.value })
+                        }
                       />
                       <label
                         for="password"
@@ -76,16 +94,16 @@ export default function Register() {
                         className="bg-black text-white rounded-md px-4 py-2 mt-4 mb-2
                       hover:bg-blue-500 hover:text-white transition-all ease-in-out duration-500"
                       >
-                        Register
+                        Sign Up
                       </button>
                     </div>
                   </div>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

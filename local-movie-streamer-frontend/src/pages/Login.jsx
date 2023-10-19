@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function Login() {
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+  });
+
   // Login user
   const loginUser = (e) => {
     e.preventDefault();
@@ -28,6 +33,10 @@ export default function Login() {
                         type="email"
                         className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
                         placeholder="email"
+                        value={data.email}
+                        onChange={(e) =>
+                          setData({ ...data, email: e.target.value })
+                        }
                       />
                       <label
                         for="email"
@@ -44,6 +53,10 @@ export default function Login() {
                         type="password"
                         className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
                         placeholder="password"
+                        value={data.password}
+                        onChange={(e) =>
+                          setData({ ...data, password: e.target.value })
+                        }
                       />
                       <label
                         for="password"
@@ -58,7 +71,7 @@ export default function Login() {
                         className="bg-black text-white rounded-md px-4 py-2 mt-4 mb-2
                     hover:bg-blue-500 hover:text-white transition-all ease-in-out duration-500"
                       >
-                        Log In
+                        Login
                       </button>
                     </div>
                   </div>
