@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 // import Logo from "../src/assets/logo.png";
-import Logo from "../assets/logo.png";
+
 import Play from "../assets/icons/play.png";
 import Pause from "../assets/icons/pause.png";
 import VolumeUp from "../assets/icons/up.png";
@@ -166,7 +166,7 @@ const Main = () => {
   return (
     <main className="min-h-screen">
       <div className="container mx-auto px-8 max-w-7xl max-h-screen">
-        <h1 className="text-3xl mt-10 mb-8 font-semibold pl-12">
+        <h1 className="text-2xl mt-10 mb-8 font-semibold pl-12">
           Local Movie Streamer 🎥
         </h1>
         <div className="relative mb-8 pl-12 pr-8">
@@ -330,21 +330,6 @@ const Main = () => {
             </div>
           </div>
         )}
-        <footer className="mt-9">
-          <div
-            className=" sticky bottom-1 mx-auto w-10 h-10 md:h-16 md:w-16 bg-black rounded-full filter  grayscale-100
-              hover:bg-gray-500  transition-all duration-300 ease-in-out"
-          >
-            <img
-              className="w-10 h-10 md:h-16 md:w-16 object-contain rounded-full mx-auto"
-              src={Logo}
-              alt="logo"
-            />
-          </div>
-          <p className="text-sm rounded-full flex items-center text-center justify-center p-2 md:text-base md:p-4">
-            Made with ❤️ by Suliman &copy; Oct 2023
-          </p>
-        </footer>
       </div>
     </main>
   );
