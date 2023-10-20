@@ -8,7 +8,13 @@ import cors from "cors";
 import recursiveReaddir from "recursive-readdir";
 import { Server } from "socket.io"; // Importing socket.io
 import { createServer } from "http";
+import authRoutes from "./routes/authRoutes.js";
+import dotenv from "dotenv";
+import mongoose from "mongoose";
+import router from "./routes/authRoutes.js";
+import cookieParser from "cookie-parser";
 
+// Setting up the app
 // Create an array to store connected clients
 const connectedClients = [];
 
@@ -37,8 +43,19 @@ if (existsSync(thumbnailDirectory)) {
 mkdirSync(thumbnailDirectory);
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    // origin: "*",
+    origin: "http://10.21.211.106:5173", // Change this to your frontend URL
+    credentials: true,
+  })
+);
 app.use(express.static(join(__dirname, "public")));
+// Version 2
+app.use(express.json());
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: false }));
+app.use("/", authRoutes);
 
 app.get("/api/movies", (req, res) => {
   recursiveReaddir(movieDirectory, (err, files) => {
@@ -233,6 +250,15 @@ io.on("connection", (socket) => {
 // httpServer.listen(PORT, () => {
 //   console.log(`Server started on http://localhost:${PORT}`);
 // });
+
+//MongoDB connection
+dotenv.config();
+
+console.log("MONGO_URL:", process.env.MONGO_URL);
+mongoose
+  .connect(process.env.MONGO_URL)
+  .then(() => console.log("=> Database Connected"))
+  .catch((err) => console.log(err));
 
 httpServer.listen(PORT, process.env.IP_ADDRESS, () => {
   console.log(`Server started on http://${process.env.IP_ADDRESS}:${PORT}`);

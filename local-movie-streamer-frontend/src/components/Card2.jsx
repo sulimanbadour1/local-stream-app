@@ -5,7 +5,7 @@ const Card2 = ({ title, duration, thumbnail, onClick, onPlayRemote }) => {
     .toISOString()
     .substr(11, 8);
   return (
-    <article className="flex flex-col border border-opacity-10 rounded-md border-gray-400 pt-2 pb-4">
+    <article className="flex flex-col border border-opacity-10 rounded-md border-gray-400 pt-2 pb-0 shadow-lg">
       <div
         onClick={onClick}
         tabIndex="0" // make it keyboard accessible
@@ -20,7 +20,7 @@ const Card2 = ({ title, duration, thumbnail, onClick, onPlayRemote }) => {
           {" "}
           {/* Fixed width and height */}
           <div className="relative w-64 md:w-90">
-            <figure className="relative rounded-sm overflow-hidden h-48 ">
+            <figure className="relative rounded-sm overflow-hidden h-60 ">
               {" "}
               {/* Fixed height for the image container */}
               <img
@@ -45,7 +45,7 @@ const Card2 = ({ title, duration, thumbnail, onClick, onPlayRemote }) => {
               </figcaption>
             </figure>
 
-            <p className="absolute right-2 bottom-2 bg-gray-900 text-gray-100 text-xs px-1 py whitespace-nowrap">
+            <p className="absolute right-2 bottom-2 bg-gray-900 text-gray-100 text-xs px-1 py-1 whitespace-nowrap">
               {formattedDuration}
             </p>
           </div>
