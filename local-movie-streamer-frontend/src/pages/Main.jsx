@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 // import Logo from "../src/assets/logo.png";
 
 import Play from "../assets/icons/play.png";
@@ -10,7 +10,11 @@ import Cast from "../assets/icons/broadcast.png";
 import fullscreen from "../assets/icons/fullscreen.png";
 import { io } from "socket.io-client";
 import Card2 from "../components/Card2";
-
+import { UserContext } from "../../context/UserContext";
+// Animation
+import { Player, Controls } from "@lottiefiles/react-lottie-player";
+import Anim from "../assets/anim/anim2.json";
+// Animation
 const Main = () => {
   // change the IP address to your local IP address
   // const SERVER_IP = "192.168.1.100";
@@ -163,11 +167,77 @@ const Main = () => {
       }
     }
   }
+
+  // context is used to get the user object
+  const { user } = useContext(UserContext);
+  if (!user) {
+    return (
+      <main className="min-h-screen ">
+        <div className="container mx-auto px-8 max-w-7xl max-h-screen">
+          <h1 className="text-2xl mt-10 mb-2 font-semibold text-center">
+            Local Movie Streamer 🎥
+          </h1>
+          <p className=" mb-2 mt-2 font-normal text-center ">
+            A plarform to stream your videos from your local machine to any
+            device. <br />
+            <span className="font-semibold">Scan, Stream and Enjoy 🎉</span>
+          </p>
+
+          <div className="-mt-10">
+            <Player
+              autoplay
+              loop={true}
+              src={Anim}
+              style={{
+                height: "330px",
+                width: "290px",
+                zIndex: 1,
+              }}
+              className="flex justify-center items-center 
+              text-center scale-75 lg:scale-100"
+            >
+              <Controls
+                visible={false}
+                buttons={["play", "repeat", "frame", "debug"]}
+              />
+            </Player>
+            <a href="/login">
+              <button
+                type="submit"
+                className="flex justify-center mt-2 w-1/2 mx-auto rounded-md bg-black px-3 py-1.5 text-sm font-semibold leading-6
+             text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                Sign in
+              </button>
+            </a>
+            <p className="mt-4 text-center text-sm text-gray-500">
+              Not a member?{" "}
+              <a
+                href="/register"
+                className="font-semibold leading-6 text-blue-500 hover:text-indigo-500"
+              >
+                Sign up now
+              </a>
+            </p>
+          </div>
+        </div>
+      </main>
+    );
+  }
+
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen ">
       <div className="container mx-auto px-8 max-w-7xl max-h-screen">
-        <h1 className="text-2xl mt-10 mb-8 font-semibold pl-12">
+        <h1 className="text-2xl mt-10 mb-2 font-semibold pl-12">
           Local Movie Streamer 🎥
+        </h1>
+        <h1 className=" inline-flex text-base mt-1 mb-4 font-semibold pl-12">
+          Welcome back ,{"   "}
+          {user && (
+            <span className="text-blue-500  text-base uppercase">
+              {user.name}
+            </span>
+          )}
         </h1>
         <div className="relative mb-8 pl-12 pr-8">
           <input
@@ -182,26 +252,28 @@ const Main = () => {
             🔍
           </span>
         </div>
-        <div
-          className={`flex flex-wrap pl-12 gap-1 ${
-            currentMovie ? "blur-md" : ""
-          }`}
-        >
-          {filteredMovies.map((movieData) => (
-            <Card2
-              key={movieData.name}
-              title={movieData.name}
-              duration={movieData.duration}
-              thumbnail={`http://${SERVER_IP}:3001/api/movies/${encodeURIComponent(
-                movieData.name
-              )}/thumbnail`}
-              onClick={() => {
-                setCurrentMovie(movieData.name); // Open locally
-              }}
-              onPlayRemote={() => openVideoPlayerOnRemote(movieData.name)}
-            />
-          ))}
-        </div>
+        {user && (
+          <div
+            className={`flex flex-wrap pl-12 pb-32 gap-1 ${
+              currentMovie ? "blur-md" : ""
+            }`}
+          >
+            {filteredMovies.map((movieData) => (
+              <Card2
+                key={movieData.name}
+                title={movieData.name}
+                duration={movieData.duration}
+                thumbnail={`http://${SERVER_IP}:3001/api/movies/${encodeURIComponent(
+                  movieData.name
+                )}/thumbnail`}
+                onClick={() => {
+                  setCurrentMovie(movieData.name); // Open locally
+                }}
+                onPlayRemote={() => openVideoPlayerOnRemote(movieData.name)}
+              />
+            ))}
+          </div>
+        )}
 
         {currentMovie && (
           <div className="fixed inset-0 flex items-center justify-center z-50">

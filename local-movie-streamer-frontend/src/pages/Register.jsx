@@ -28,7 +28,8 @@ export default function Register() {
       } else {
         setData({ name: "", email: "", password: "" });
         toast.success("Logged in successfully!");
-        navigate("/");
+        navigate("/login");
+        window.location.reload();
       }
     } catch (error) {
       console.log(error);
@@ -37,95 +38,106 @@ export default function Register() {
 
   // Return the JSX
   return (
-    <div>
-      <div className="max-h-screen py-6 flex flex-col justify-center sm:py-24 md:-mt-16 z-10">
-        <div className="relative py-3 max-w-xl sm:mx-auto">
-          <div className="absolute inset-0 bg-gradient-to-r from-gray-600 to-gray-300 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-2xl"></div>
-          <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-24">
-            <div className="max-w-md mx-auto">
-              <div>
-                <h1 className="text-xl font-normal md:font-semibold md:text-2xl">
-                  Get your account 🎥
-                </h1>
-              </div>
-              <form onSubmit={registerUser}>
-                <div className="divide-y divide-gray-200">
-                  <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-sm sm:leading-7">
-                    <div className="relative">
-                      <input
-                        autoComplete="off"
-                        id="name"
-                        name="name"
-                        type="text"
-                        className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
-                        placeholder="Name"
-                        value={data.name}
-                        onChange={(e) =>
-                          setData({ ...data, name: e.target.value })
-                        }
-                      />
-                      <label
-                        htmlFor="name"
-                        className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
-                      >
-                        Name
-                      </label>
-                    </div>
-                    <div className="relative">
-                      <input
-                        autoComplete="off"
-                        id="email"
-                        name="email"
-                        type="email"
-                        className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
-                        placeholder="email"
-                        value={data.email}
-                        onChange={(e) =>
-                          setData({ ...data, email: e.target.value })
-                        }
-                      />
-                      <label
-                        htmlFor="email"
-                        className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
-                      >
-                        Email
-                      </label>
-                    </div>
-                    <div className="relative">
-                      <input
-                        autoComplete="off"
-                        id="password"
-                        name="password"
-                        type="password"
-                        className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
-                        placeholder="password"
-                        value={data.password}
-                        onChange={(e) =>
-                          setData({ ...data, password: e.target.value })
-                        }
-                      />
-                      <label
-                        htmlFor="password"
-                        className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
-                      >
-                        Password
-                      </label>
-                    </div>
-                    <div className="relative">
-                      <button
-                        type="submit"
-                        className="bg-black text-white rounded-md px-4 py-2 mt-4 mb-2
-                      hover:bg-blue-500 hover:text-white transition-all ease-in-out duration-500"
-                      >
-                        Sign Up
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </form>
+    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-0 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+        {/* <img className="mx-auto h-12 w-auto" src={Logo} alt="Your Company" /> */}
+        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+          Get your account 🎥
+        </h2>
+      </div>
+
+      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <form className="space-y-6" onSubmit={registerUser}>
+          <div>
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Name
+            </label>
+            <div className="mt-2">
+              <input
+                id="name"
+                name="name"
+                type="text"
+                autoComplete="name"
+                required
+                className="block w-full rounded-md border-0 
+                py-1.5 text-gray-900 shadow-sm ring-1 ring-inset
+                 ring-gray-300 placeholder:text-gray-400"
+                value={data.name}
+                onChange={(e) => setData({ ...data, name: e.target.value })}
+              />
             </div>
           </div>
-        </div>
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Email address
+            </label>
+            <div className="mt-2">
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                className="block w-full rounded-md border-0 
+                py-1.5 text-gray-900 shadow-sm ring-1 ring-inset
+                 ring-gray-300 placeholder:text-gray-400"
+                value={data.email}
+                onChange={(e) => setData({ ...data, email: e.target.value })}
+              />
+            </div>
+          </div>
+
+          <div>
+            <div className="flex items-center justify-between">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Password
+              </label>
+            </div>
+            <div className="mt-2">
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="current-password"
+                required
+                className="block w-full rounded-md border-0 
+                py-1.5 text-gray-900 shadow-sm ring-1 ring-inset
+                 ring-gray-300 placeholder:text-gray-400"
+                value={data.password}
+                onChange={(e) => setData({ ...data, password: e.target.value })}
+              />
+            </div>
+          </div>
+
+          <div>
+            <button
+              type="submit"
+              className="flex w-full justify-center rounded-md bg-black px-3 py-1.5 text-sm font-semibold leading-6
+           text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Sign up
+            </button>
+          </div>
+        </form>
+
+        <p className="mt-10 text-center text-sm text-gray-500">
+          You have an account ?{" "}
+          <a
+            href="/login"
+            className="font-semibold leading-6 text-blue-500 hover:text-indigo-500"
+          >
+            Sign in here
+          </a>
+        </p>
       </div>
     </div>
   );

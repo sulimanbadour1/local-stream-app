@@ -1,7 +1,9 @@
 import express from "express";
 import cors from "cors";
 import {
+  getProfile,
   loginUser,
+  logoutUser,
   registerUser,
   testing,
 } from "../controllers/authControllers.js";
@@ -24,5 +26,7 @@ router.use(
 router.get(`/test`, testing);
 router.post(`/register`, registerUser);
 router.post(`/login`, loginUser);
+router.get(`/profile`, getProfile);
+router.post(`/logout`, logoutUser);
 
 export default router;

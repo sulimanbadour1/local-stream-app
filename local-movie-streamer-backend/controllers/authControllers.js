@@ -1,6 +1,8 @@
 import User from "../Models/user.js";
 import { hashPassword, comparePasswords } from "../helpers/auth.js"; // import the helper functions
+import jwt from "jsonwebtoken"; // import jsonwebtoken
 
+// testing
 export const testing = (req, res) => {
   res.json("Test is Working!");
 };
@@ -55,10 +57,51 @@ export const loginUser = async (req, res) => {
       return res.json({ error: "Password wrong" });
     }
     if (match) {
-      return res.json("passwords match");
+      // create a token
+      jwt.sign(
+        { email: user.email, id: user._id, name: user.name },
+        process.env.JWT_SECRET,
+        {},
+        (err, token) => {
+          if (err) throw err;
+          res.cookie("token", token).json(user);
+        } // create a token
+      );
+      // return res.json("passwords match");
     }
   } catch (error) {
     console.error(error);
     return res.status(500).send("Server Error");
   }
+};
+
+export const getProfile = async (req, res) => {
+  const { token } = req.cookies;
+  if (token) {
+    jwt.verify(token, process.env.JWT_SECRET, {}, (err, user) => {
+      if (err) throw err;
+      res.json(user);
+    });
+  } else {
+    res.json(null);
+  }
+};
+
+// logout user
+
+// export const logoutUser = (req, res) => {
+//   if (req.session) {
+//     req.session.destroy((err) => {
+//       if (err) {
+//         res.status(500).send("Failed to logout");
+//       } else {
+//         res.status(200).send("Logged out successfully");
+//       }
+//     });
+//   } else {
+//     res.status(200).send("No active session found");
+//   }
+// };
+export const logoutUser = (req, res) => {
+  res.clearCookie("token").status(200).send("Logged out successfully");
 };

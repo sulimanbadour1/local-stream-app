@@ -12,6 +12,7 @@ import authRoutes from "./routes/authRoutes.js";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import router from "./routes/authRoutes.js";
+import cookieParser from "cookie-parser";
 
 // Setting up the app
 // Create an array to store connected clients
@@ -50,6 +51,11 @@ app.use(
   })
 );
 app.use(express.static(join(__dirname, "public")));
+// Version 2
+app.use(express.json());
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: false }));
+app.use("/", authRoutes);
 
 app.get("/api/movies", (req, res) => {
   recursiveReaddir(movieDirectory, (err, files) => {
@@ -244,9 +250,6 @@ io.on("connection", (socket) => {
 // httpServer.listen(PORT, () => {
 //   console.log(`Server started on http://localhost:${PORT}`);
 // });
-// Version 2
-app.use(express.json());
-app.use("/", authRoutes);
 
 //MongoDB connection
 dotenv.config();
