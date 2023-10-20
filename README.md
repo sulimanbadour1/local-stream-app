@@ -16,25 +16,48 @@ Stream your local movies through a beautiful web interface. Local Movie Streamer
 
 ## Screenshots
 
-### 1. Login Page
+<table>
+  <tr>
+    <td>
 
-![Landing Page](https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/v4.JPG?raw=true)
+### 1. Landing Page
 
-![Login Page](https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/v4_2.JPG?raw=true)
+<img src="https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/v4.JPG?raw=true" width="300">
 
-### 2. Signup Page
+    </td>
+    <td>
 
-![Signup Page](https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/v4_1.JPG?raw=true)
+### 2. Login Page
 
-### 3. Home
+<img src="https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/v4_2.JPG?raw=true" width="300">
 
-![Home Page](https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/v4_3.JPG?raw=true)
+    </td>
+
+  </tr>
+  <tr>
+    <td>
+
+### 3. Signup Page
+
+<img src="https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/v4_1.JPG?raw=true" width="300">
+
+    </td>
+    <td>
+
+### 4. Home Page
+
+<img src="https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/v4_3.JPG?raw=true" width="300">
+
+    </td>
+
+  </tr>
+</table>
 
 ## Technology Stack
 
-- **MERN Stack**: MongoDB, Express.js, React.js, and Node.js
-- **Streaming**: WebSockets
-- **Authentication**: bcrypt (for password hashing) and JWT (for user authentication)
+- **MERN Stack**: MongoDB, Express.js, React.js, and Node.js.
+- **Streaming**: WebSockets.
+- **Authentication**: bcrypt (for password hashing) and JWT (for user authentication).
 
 ## Prerequisites
 
