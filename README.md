@@ -12,21 +12,23 @@ Stream your local movies through a beautiful web interface. Local Movie Streamer
 - **Device Control**: Control and access the stream from any device on your local network.
 - **Authentication**: Secure login and sign-up pages have been integrated.
 - **Subtitles**: Upload SRT subtitle files while watching a movie.
-- **Responsive**: Can be accessed on various device sizes.
+- **Responsive**: Can be accessed on various device sizes using Tailwind CSS.
 
 ## Screenshots
 
 ### 1. Login Page
 
-![Login Page](path_to_login_image.jpg)
+![Landing Page](https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/v4.JPG?raw=true)
+
+![Login Page](https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/v4_2.JPG?raw=true)
 
 ### 2. Signup Page
 
-![Signup Page](path_to_signup_image.jpg)
+![Signup Page](https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/v4_1.JPG?raw=true)
 
 ### 3. Home
 
-![Home Page](path_to_home_image.jpg)
+![Home Page](https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/v4_3.JPG?raw=true)
 
 ## Technology Stack
 
