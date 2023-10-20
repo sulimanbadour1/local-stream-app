@@ -122,22 +122,6 @@ Feel free to contribute to this project! Fork the repository, make your changes,
 <img  src="https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/intro2.gif?raw=true" width ="500px"/>
 <img  src="https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/intro3.gif?raw=true" width ="500px"/>
 
-### 1. Landing Page
-
-![Landing Page](https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/v4.JPG?raw=true)
-
-### 2. Login Page
-
-![Login Page](https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/v4_2.JPG?raw=true)
-
-### 3. Signup Page
-
-![Signup Page](https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/v4_1.JPG?raw=true)
-
-### 4. Home Page
-
-![Home Page](https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/v4_3.JPG?raw=true)
-
 ## License
 
 MIT License
