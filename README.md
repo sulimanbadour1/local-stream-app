@@ -2,20 +2,37 @@
 
 # Local Movie Streamer
 
-Stream your local movies through a beautiful web interface. Local Movie Streamer allows you to search through your movie collection, watch them, and even add subtitles!
+Stream your local movies through a beautiful web interface. Local Movie Streamer, a MERN application, allows you to search through your movie collection, watch them, add subtitles, and control the stream from any device connected to your local network.
 
 ![Demo Image](https://github.com/sulimanbadour1/local-stream-app/blob/main/screenshots/v3.gif?raw=true)
 
 ## Features
 
-- **Local Streaming**: Stream videos stored on your local machine.
+- **Local Streaming**: Stream videos stored on your local machine using WebSockets for seamless video streaming.
+- **Device Control**: Control and access the stream from any device on your local network.
+- **Authentication**: Secure login and sign-up pages have been integrated.
 - **Subtitles**: Upload SRT subtitle files while watching a movie.
 - **Responsive**: Can be accessed on various device sizes.
 
+## Screenshots
+
+### 1. Login Page
+
+![Login Page](path_to_login_image.jpg)
+
+### 2. Signup Page
+
+![Signup Page](path_to_signup_image.jpg)
+
+### 3. Home
+
+![Home Page](path_to_home_image.jpg)
+
 ## Technology Stack
 
-- **Frontend**: React
-- **Backend**: Express.js
+- **MERN Stack**: MongoDB, Express.js, React.js, and Node.js
+- **Streaming**: WebSockets
+- **Authentication**: bcrypt (for password hashing) and JWT (for user authentication)
 
 ## Prerequisites
 
@@ -39,18 +56,18 @@ Stream your local movies through a beautiful web interface. Local Movie Streamer
    ```sh
    # Frontend dependencies
    cd frontend
-   yarn install
+   npm install
 
    # Backend dependencies
    cd ../backend
-   yarn install
+   npm install
    ```
 
 ### Configuration
 
-- Create a direrctory and add your movies to it.
-
-- Change the backend dir to your folder from the server.js file.
+- Create a directory and add your movies to it.
+- Change the backend directory to point to your folder from the `server.js` file.
+- Modify the IP address in the server configuration to your local IP address if needed.
 - File structure:
   ![file struct Image](https://github.com/sulimanbadour1/local-stream-app/blob/main/screenshots/file_stru.JPG?raw=true)
 
@@ -61,7 +78,7 @@ Stream your local movies through a beautiful web interface. Local Movie Streamer
 
 #### Frontend
 
-No specific configuration needed.
+- Modify the API endpoints if needed to point to the correct backend server by using env variables.
 
 ### Running the Application
 
@@ -80,7 +97,7 @@ No specific configuration needed.
 - Start the server:
 
   ```sh
-  yarn start
+  npm start
   node server.js
   ```
 
@@ -100,8 +117,8 @@ No specific configuration needed.
 
 ### Accessing the App
 
-- Open your web browser and visit `http://localhost:5173`.
-- Enjoy streaming your local movies!
+- Open your web browser and visit `http://localhost:5173` or the configured IP address.
+- If you're a new user, sign up. Otherwise, log in and enjoy streaming your local movies!
 
 ## Usage
 
@@ -116,5 +133,3 @@ Feel free to contribute to this project! Fork the repository, make your changes,
 ## License
 
 MIT License
-
----
