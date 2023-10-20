@@ -6,6 +6,8 @@ Stream your local movies through a beautiful web interface. Local Movie Streamer
 
 ![Demo Image](https://github.com/sulimanbadour1/local-stream-app/blob/main/screenshots/v3.gif?raw=true)
 
+![Demo Image](https://github.com/sulimanbadour1/local-stream-app/blob/main/screenshots/v3.gif?raw=true)
+
 ## Features
 
 - **Local Streaming**: Stream videos stored on your local machine using WebSockets for seamless video streaming.
@@ -13,45 +15,6 @@ Stream your local movies through a beautiful web interface. Local Movie Streamer
 - **Authentication**: Secure login and sign-up pages have been integrated.
 - **Subtitles**: Upload SRT subtitle files while watching a movie.
 - **Responsive**: Can be accessed on various device sizes using Tailwind CSS.
-
-## Screenshots
-
-<table>
-  <tr>
-    <td>
-
-### 1. Landing Page
-
-<img src="https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/v4.JPG?raw=true" width="300">
-
-    </td>
-    <td>
-
-### 2. Login Page
-
-<img src="https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/v4_2.JPG?raw=true" width="300">
-
-    </td>
-
-  </tr>
-  <tr>
-    <td>
-
-### 3. Signup Page
-
-<img src="https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/v4_1.JPG?raw=true" width="300">
-
-    </td>
-    <td>
-
-### 4. Home Page
-
-<img src="https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/v4_3.JPG?raw=true" width="300">
-
-    </td>
-
-  </tr>
-</table>
 
 ## Technology Stack
 
@@ -154,6 +117,24 @@ Stream your local movies through a beautiful web interface. Local Movie Streamer
 ## Contributing
 
 Feel free to contribute to this project! Fork the repository, make your changes, and submit a pull request.
+
+## Screenshots
+
+### 1. Landing Page
+
+![Landing Page](https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/v4.JPG?raw=true)
+
+### 2. Login Page
+
+![Login Page](https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/v4_2.JPG?raw=true)
+
+### 3. Signup Page
+
+![Signup Page](https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/v4_1.JPG?raw=true)
+
+### 4. Home Page
+
+![Home Page](https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/v4_3.JPG?raw=true)
 
 ## License
 
