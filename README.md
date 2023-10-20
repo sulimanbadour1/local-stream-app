@@ -118,6 +118,10 @@ Feel free to contribute to this project! Fork the repository, make your changes,
 
 ## Screenshots
 
+<img  src="https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/intro.gif?raw=true" width ="500px"/>
+<img  src="https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/intro2.gif?raw=true" width ="500px"/>
+<img  src="https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/intro3.gif?raw=true" width ="500px"/>
+
 ### 1. Landing Page
 
 ![Landing Page](https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/v4.JPG?raw=true)
