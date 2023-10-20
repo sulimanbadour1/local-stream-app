@@ -7,7 +7,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 .env*
-
+Notes.txt
 
 node_modules
 dist
