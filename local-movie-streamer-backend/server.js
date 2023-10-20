@@ -42,7 +42,13 @@ if (existsSync(thumbnailDirectory)) {
 mkdirSync(thumbnailDirectory);
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    // origin: "*",
+    origin: "http://10.21.211.106:5173", // Change this to your frontend URL
+    credentials: true,
+  })
+);
 app.use(express.static(join(__dirname, "public")));
 
 app.get("/api/movies", (req, res) => {
@@ -248,7 +254,7 @@ dotenv.config();
 console.log("MONGO_URL:", process.env.MONGO_URL);
 mongoose
   .connect(process.env.MONGO_URL)
-  .then(() => console.log("Database Connected"))
+  .then(() => console.log("=> Database Connected"))
   .catch((err) => console.log(err));
 
 httpServer.listen(PORT, process.env.IP_ADDRESS, () => {

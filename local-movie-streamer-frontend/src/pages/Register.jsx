@@ -16,23 +16,23 @@ export default function Register() {
   // Register user
   const registerUser = async (e) => {
     e.preventDefault();
-    // const { name, email, password } = data;
-    // try {
-    //   const { data } = await axios.post(`/register`, {
-    //     name,
-    //     email,
-    //     password,
-    //   });
-    //   if (data.error) {
-    //     toast.error(data.error);
-    //   } else {
-    //     setData({ name: "", email: "", password: "" });
-    //     toast.success("Logged in successfully!");
-    //     navigate("/");
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    const { name, email, password } = data;
+    try {
+      const { data } = await axios.post("/register", {
+        name,
+        email,
+        password,
+      });
+      if (data.error) {
+        toast.error(data.error);
+      } else {
+        setData({ name: "", email: "", password: "" });
+        toast.success("Logged in successfully!");
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // Return the JSX
