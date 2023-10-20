@@ -4,9 +4,8 @@
 
 Stream your local movies through a beautiful web interface. Local Movie Streamer, a MERN application, allows you to search through your movie collection, watch them, add subtitles, and control the stream from any device connected to your local network.
 
-![Demo Image](https://github.com/sulimanbadour1/local-stream-app/blob/main/screenshots/v3.gif?raw=true)
-
-![Demo Image](https://github.com/sulimanbadour1/local-stream-app/blob/main/screenshots/v3.gif?raw=true)
+<img  src="https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/intro.gif?raw=true" width ="300px"/>
+<img  src="https://github.com/sulimanbadour1/local-stream-app/blob/v2.0/screenshots/intro.gif?raw=true" width ="300px"/>
 
 ## Features
 
