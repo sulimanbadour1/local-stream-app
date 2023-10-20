@@ -10,7 +10,10 @@ import { Server } from "socket.io"; // Importing socket.io
 import { createServer } from "http";
 import authRoutes from "./routes/authRoutes.js";
 import dotenv from "dotenv";
+import mongoose from "mongoose";
+import router from "./routes/authRoutes.js";
 
+// Setting up the app
 // Create an array to store connected clients
 const connectedClients = [];
 
@@ -236,6 +239,17 @@ io.on("connection", (socket) => {
 //   console.log(`Server started on http://localhost:${PORT}`);
 // });
 // Version 2
+app.use(express.json());
+app.use("/", authRoutes);
+
+//MongoDB connection
+dotenv.config();
+
+console.log("MONGO_URL:", process.env.MONGO_URL);
+mongoose
+  .connect(process.env.MONGO_URL)
+  .then(() => console.log("Database Connected"))
+  .catch((err) => console.log(err));
 
 httpServer.listen(PORT, process.env.IP_ADDRESS, () => {
   console.log(`Server started on http://${process.env.IP_ADDRESS}:${PORT}`);

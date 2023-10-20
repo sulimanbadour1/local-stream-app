@@ -5,19 +5,11 @@ export default function Login() {
     email: "",
     password: "",
   });
-  const SERVER_IP = import.meta.env.VITE_IP_ADDRESS;
-  const SERVER_URL = `http://${SERVER_IP}:5173`;
+
   // Login user
   const loginUser = (e) => {
     e.preventDefault();
-    axios
-      .get(`http://${SERVER_IP}:5173/`)
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error("There was an error!", error);
-      });
+    axios.get("/test");
   };
   return (
     <div>

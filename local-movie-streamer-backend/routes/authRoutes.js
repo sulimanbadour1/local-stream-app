@@ -1,18 +1,23 @@
 import express from "express";
 import cors from "cors";
-import { testing } from "../controllers/authControllers.js";
+import { registerUser, testing } from "../controllers/authControllers.js";
+import dotenv from "dotenv";
 
+dotenv.config();
 const router = express.Router();
 
 // Middleware
+
 router.use(
   cors({
+    // origin: "*",
+    origin: "http://10.21.211.106:5173",
     credentials: true,
-    // origin: `http://${process.env.IP_ADDRESS}:5173`,
-    origin: "http://localhost:5173",
   })
 );
 
-router.get("/", testing);
+// Testing Route
+router.get(`/test`, testing);
+// router.post(`/register`, registerUser);
 
 export default router;
