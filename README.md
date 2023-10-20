@@ -1,7 +1,5 @@
 [![wakatime](https://wakatime.com/badge/user/d7fffb39-631e-454c-9cce-bb60e92d14c5/project/018b20f9-a76c-4861-a606-5f22ee83109d.svg)](https://wakatime.com/badge/user/d7fffb39-631e-454c-9cce-bb60e92d14c5/project/018b20f9-a76c-4861-a606-5f22ee83109d)
 
-<img src="https://wakatime.com/badge/user/d7fffb39-631e-454c-9cce-bb60e92d14c5/project/018b20f9-a76c-4861-a606-5f22ee83109d.svg">
-
 # Local Movie Streamer
 
 Stream your local movies through a beautiful web interface. Local Movie Streamer, a MERN application, allows you to search through your movie collection, watch them, add subtitles, and control the stream from any device connected to your local network.
