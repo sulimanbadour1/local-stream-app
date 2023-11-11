@@ -1,3 +1,5 @@
+/* eslint-disable no-case-declarations */
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef, useContext } from "react";
 // import Logo from "../src/assets/logo.png";
 
@@ -14,6 +16,7 @@ import { UserContext } from "../../context/UserContext";
 // Animation
 import { Player, Controls } from "@lottiefiles/react-lottie-player";
 import Anim from "../assets/anim/anim2.json";
+
 // Animation
 const Main = () => {
   // change the IP address to your local IP address

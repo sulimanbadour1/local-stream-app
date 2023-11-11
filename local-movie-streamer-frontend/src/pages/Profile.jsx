@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 
 const Profile = () => {
@@ -53,11 +53,13 @@ const Profile = () => {
   }
 
   return (
-    <article className="flex flex-col items-center justify-center bg-white p-8 rounded-lg shadow-md ">
-      <h1 className="text-4xl font-bold mb-6 text-gray-700">Your Profile</h1>
-      <div className="flex flex-col items-center justify-center mt-4 space-y-4">
+    <article className="flex flex-col items-center justify-center bg-white p-8 shadow-md border rounded-lg m-12">
+      <h1 className="text-4xl font-bold mb-6 text-gray-700 rounded-lg ">
+        Your Profile
+      </h1>
+      <div className="flex flex-col items-center justify-center mt-4 space-y-4 ">
         <p className="text-2xl font-medium text-gray-600 uppercase">
-          <span className="text-gray-500 ">Username:</span> {user.name}
+          <span className="text-gray-500 font ">Username:</span> {user.name}
         </p>
         <p className="text-2xl font-medium text-gray-600 uppercase">
           <span className="text-gray-500">Email:</span> {user.email}
