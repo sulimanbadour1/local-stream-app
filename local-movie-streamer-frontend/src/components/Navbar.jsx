@@ -17,6 +17,12 @@ export default function Navbar() {
       >
         Home
       </Link>
+      <Link
+        to={"/movies"}
+        className="text-sm md:text-base hover:text-blue-700 transition-opacity duration-100"
+      >
+        Movies & Series
+      </Link>
       {user ? (
         <>
           <Link
