@@ -1,5 +1,3 @@
-/* eslint-disable no-case-declarations */
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef, useContext } from "react";
 // import Logo from "../src/assets/logo.png";
 
@@ -12,6 +10,7 @@ import Cast from "../assets/icons/broadcast.png";
 import fullscreen from "../assets/icons/fullscreen.png";
 import { io } from "socket.io-client";
 import Card2 from "../components/Card2";
+
 import { UserContext } from "../../context/UserContext";
 // Animation
 import { Player, Controls } from "@lottiefiles/react-lottie-player";
@@ -242,6 +241,7 @@ const Main = () => {
             </span>
           )}
         </h1>
+
         <div className="relative mb-8 pl-12 pr-8">
           <input
             type="text"
@@ -255,6 +255,15 @@ const Main = () => {
             🔍
           </span>
         </div>
+        <div
+          className="text z-10 text-black text-xl font-semibold 
+          capitalize animate-text-gradient bg-gradient-to-r from-[#b6b5bf]
+           via-[#813d8b] to-[#150ed4]  px-12 pb-4 
+          bg-[200%_auto] bg-clip-text text-transparent"
+        >
+          your local files
+        </div>
+
         {user && (
           <div
             className={`flex flex-wrap pl-12 pb-32 gap-1 ${

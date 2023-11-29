@@ -1,13 +1,17 @@
 import { useMutation } from "@tanstack/react-query";
 import { mutationLogin } from "./mutation";
+import { useNavigate } from "react-router-dom";
 const Shows = () => {
+  const navigate = useNavigate();
   const { data, mutate } = useMutation({
     mutationKey: "login",
     mutationFn: mutationLogin,
   });
-  console.log(data);
+  // console.log(data);
   const handleLogin = async () => {
     await mutate();
+    localStorage.setItem("guest_session_id", data.guest_session_id);
+    navigate("/homeshows");
   };
   return (
     <div className=" mx-auto mt-12 text-center flex justify-center content-center flex-col">
@@ -20,8 +24,11 @@ const Shows = () => {
       </div>
       <button
         onClick={handleLogin}
-        className="flex justify-center mt-12 mx-auto rounded-md bg-black px-3 py-1.5 text-sm font-semibold leading-6
-             text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        className="flex justify-center mt-12 mx-auto rounded-md
+         bg-black px-3 py-1.5 text-sm font-semibold leading-6
+             text-white shadow-sm hover:bg-blue-500 focus-visible:outline 
+             focus-visible:outline-2 focus-visible:outline-offset-2
+              focus-visible:outline-indigo-600"
       >
         Login
       </button>
