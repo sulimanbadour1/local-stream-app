@@ -34,7 +34,7 @@ const Movie = () => {
     <div className=" items-center justify-center content-center">
       <div className="pr-12 pl-12 mt-12 flex mx-auto justify-center mb-12 ">
         <div
-          className={`p-8 flex gap-10 border rounded-lg flex-col md:flex-row`}
+          className={`p-8 flex gap-10 border border-gray-600/10 rounded-lg flex-col md:flex-row`}
         >
           <div className="flex p-8 object-cover">
             <img
@@ -46,10 +46,10 @@ const Movie = () => {
             <div className="text-xl md:text-5xl pt-12 pb-4 font-bold">
               {data.title}
             </div>
-            <div className="py-2 flex items-center gap-4">
+            <div className="py-2 flex items-center gap-1">
               {data.genres.map((item) => (
                 <span
-                  className="text-xs px-1 py-1 font-normal rounded-lg bg-slate-400 text-white"
+                  className="text-xs px-1 py-1 font-normal rounded-lg bg-slate-700 text-white"
                   key={item.id}
                 >
                   {item.name}
@@ -114,13 +114,22 @@ const Movie = () => {
       {/* The recommended movies are: */}
       {ReccomdMovies && (
         <div className="mb-24">
-          <div
-            className="text-3xl font-bold pb-8 capitalize
+          {ReccomdMovies.results.length == 0 ? (
+            <div
+              className="text-3xl font-bold pb-8 capitalize
             animate-text-gradient bg-gradient-to-r from-[#853232] via-[#5785c9] to-[#e90e0a] 
             bg-[200%_auto] bg-clip-text text-transparent text-center"
-          >
-            You might also like
-          </div>
+            ></div>
+          ) : (
+            <div
+              className="text-3xl font-bold pb-8 capitalize
+          animate-text-gradient bg-gradient-to-r from-[#853232] via-[#5785c9] to-[#e90e0a] 
+          bg-[200%_auto] bg-clip-text text-transparent text-center"
+            >
+              You might also like
+            </div>
+          )}
+
           <div className={styles.wrapper}>
             {ReccomdMovies.results.map((item) => (
               <Link to={`/movie/${item.id}`} key={item.id} reloadDocument>
