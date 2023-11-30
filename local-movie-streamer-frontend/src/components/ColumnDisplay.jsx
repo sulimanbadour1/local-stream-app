@@ -2,19 +2,9 @@ import { Link } from "react-router-dom";
 import styles from "./MovieCard/movie.module.css";
 /* eslint-disable react/prop-types */
 const ColumnDisplay = ({ tab, data }) => {
-  console.log(data[1].video);
   return (
     <div>
       <div>
-        <div className="justify-center flex content-center py-4">
-          <div
-            className="text z-10 text-black text-2xl font-medium capitalize 
-            animate-text-gradient bg-gradient-to-r from-[#852f2f] via-[#e03c3c] to-[#980a07] 
-            bg-[200%_auto] bg-clip-text text-transparent"
-          >
-            Trending {tab}
-          </div>
-        </div>
         <div className={styles.wrapper}>
           {data.map((item) => (
             <Link to={"/"} key={item.id}>
@@ -23,6 +13,7 @@ const ColumnDisplay = ({ tab, data }) => {
                   <img
                     src={`https://image.tmdb.org/t/p/original/${item.poster_path}`}
                     alt="Poster"
+                    loading="lazy"
                   />
                 </div>
                 <div className={styles.details}>
