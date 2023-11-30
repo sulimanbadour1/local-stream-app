@@ -27,7 +27,7 @@ const ColumnDisplay = ({ tab, data }) => {
                   </h2>
 
                   <div className={styles.rating}>
-                    <span> {parseInt(item.vote_average)}🌟</span>
+                    <span> {item.vote_average.toString().slice(0, 3)}🌟</span>
                   </div>
                   {/* <div className={styles.tags}>
                   <span className={styles.tag}>{item.video}</span>

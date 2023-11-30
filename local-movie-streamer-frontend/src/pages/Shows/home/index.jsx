@@ -90,7 +90,7 @@ const HomeShows = () => {
         </div>
       </div>
       <div className="flex-col justify-center items-center text-center">
-        <div className="flex gap-3">
+        <div className="flex gap-3 flex-wrap justify-center items-center">
           {/* // Treding poplar etc */}
           {cats.map((item) => (
             <ul
@@ -120,7 +120,7 @@ const HomeShows = () => {
             <li className="me-2">
               <a
                 href="#"
-                className={`text-lg px-4 py-3 text-white rounded-lg  
+                className={`px-4 py-2 text-white rounded-lg  
             ${tab === "movies" ? "bg-slate-950" : "bg-slate-400"}
            `}
                 aria-current="page"
@@ -133,7 +133,7 @@ const HomeShows = () => {
               <a
                 href="#"
                 onClick={() => setTab("series")}
-                className={`text-lg px-6 py-3 text-white rounded-lg
+                className={`px-4 py-2 text-white rounded-lg
             ${tab === "series" ? "bg-slate-950 " : "bg-slate-400"}
            `}
               >

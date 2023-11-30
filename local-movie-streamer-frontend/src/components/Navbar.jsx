@@ -64,7 +64,7 @@ const NavBar1 = () => {
   return (
     <div>
       <div
-        className="flew-row relative mx-auto flex h-12 
+        className="relative mx-auto flex h-12 
       flex-row justify-center items-center w-fit mt-6 mb-12
       rounded-3xl border border-black/40 bg-neutral-800 px-2 backdrop-blur-sm"
       >
@@ -85,7 +85,8 @@ const NavBar1 = () => {
                     ref={(el) => (tabsRef.current[index] = el)}
                     className={`${
                       isActive ? `` : `hover:text-neutral-300`
-                    } my-auto cursor-pointer select-none rounded-full px-4 text-center font-light text-white`}
+                    } my-auto cursor-pointer select-none text-xs md:text-base
+                    rounded-full px-4 text-center font-light text-white`}
                     onClick={() => setActiveTabIndex(index)}
                   >
                     {tab.name}
@@ -94,7 +95,7 @@ const NavBar1 = () => {
               );
             })}
             <div
-              className="hover:text-neutral-300
+              className="hover:text-neutral-300 text-xs md:text-base
                      my-auto cursor-pointer select-none rounded-full px-4 text-center font-light text-white"
               onClick={logout}
             >
@@ -112,7 +113,8 @@ const NavBar1 = () => {
                     ref={(el) => (tabsRef.current[index] = el)}
                     className={`${
                       isActive ? `` : `hover:text-neutral-300`
-                    } my-auto cursor-pointer select-none rounded-full px-4 text-center font-light text-white`}
+                    } my-auto cursor-pointer select-none text-xs md:text-base
+                     rounded-full px-4 text-center font-light text-white`}
                     onClick={() => setActiveTabIndex(index)}
                   >
                     {tab.name}
