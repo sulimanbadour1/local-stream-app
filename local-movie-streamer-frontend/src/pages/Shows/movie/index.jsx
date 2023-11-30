@@ -36,14 +36,16 @@ const Movie = () => {
         <div
           className={`p-8 flex gap-10 border rounded-lg flex-col md:flex-row`}
         >
-          <div className="flex p-12 object-cover">
+          <div className="flex p-8 object-cover">
             <img
               src={`https://image.tmdb.org/t/p/original/${data.poster_path}`}
               className="rounded-lg shadow-lg w-96 h-fit"
             />
           </div>
           <div className="flex px-4 flex-col flex-1 mx-auto">
-            <div className="text-5xl pt-12 pb-4 font-bold">{data.title}</div>
+            <div className="text-xl md:text-5xl pt-12 pb-4 font-bold">
+              {data.title}
+            </div>
             <div className="py-2 flex items-center gap-4">
               {data.genres.map((item) => (
                 <span
@@ -55,38 +57,32 @@ const Movie = () => {
               ))}
             </div>
 
-            <div className="text-lg  py-2 font-semibold">{data.overview}</div>
-            <div className="text-base  py-2 font-medium">
+            <div className=" text-sm md:text-lg  py-4 mb-6 md:font-semibold">
+              {data.overview}
+            </div>
+            <div className="md:text-base  py-2 font-medium text-sm ">
               <span className="font-bold">Release Date: </span>
               {data.release_date}
             </div>
 
-            <div className="text-base  py-2 font-medium">
+            <div className="md:text-base  py-2 font-medium text-sm ">
               <span className="font-bold">Original Language: </span>
               {data.original_language}
             </div>
-            <div className="py-2">
-              <span className="font-bold py-2">Production Companies: </span>
-              {data.production_companies.map((item) => (
-                <span className="text-base px-2 py-2 font-medium" key={item.id}>
-                  {item.name}
-                </span>
-              ))}
-            </div>
-            <div className="text-base  py-2 font-medium">
+            <div className="md:text-base  py-2 font-medium text-sm ">
               <span className="font-bold py-2">Status: </span>
               {data.status}
             </div>
-            <div className="text-base  py-2 font-medium">
-              <span className="font-bold py-2">Rating: </span>
+            <div className="md:text-base  py-2 font-medium text-sm ">
+              <span className="font-bold ">Rating: </span>
               {data.vote_average.toString().slice(0, 3)}🌟
             </div>
 
-            <div className="text-base  py-2 font-medium">
+            <div className="md:text-base  py-2 font-medium text-sm ">
               <span className="font-bold"> Duration </span>
               {data.runtime} {data.runtime > 1 ? "mins" : "min"}
             </div>
-            <div className="text-base  font-medium">
+            <div className="md:text-base  py-2 font-medium text-sm ">
               <span className="font-bold">
                 Home page:{" "}
                 <a
@@ -100,11 +96,11 @@ const Movie = () => {
                 </a>
               </span>
             </div>
-            <div className="text-base  py-2 font-medium">
+            <div className="md:text-base  py-2 font-medium text-sm ">
               <span className="font-bold">Tag Line: </span>
               {data.tagline}
             </div>
-            <div className="text-base  py-2 font-medium">
+            <div className="md:text-base  py-2 font-medium text-sm ">
               {data.video ? (
                 <span className="font-bold">Video: </span>
               ) : (
