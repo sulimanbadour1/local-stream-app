@@ -7,7 +7,10 @@ const ColumnDisplay = ({ tab, data }) => {
       <div>
         <div className={styles.wrapper}>
           {data.map((item) => (
-            <Link to={"/"} key={item.id}>
+            <Link
+              to={`/${tab === "movies" ? "movie" : "tvshow"}/${item.id}`}
+              key={item.id}
+            >
               <div className={styles.card}>
                 <div className={styles.poster}>
                   <img

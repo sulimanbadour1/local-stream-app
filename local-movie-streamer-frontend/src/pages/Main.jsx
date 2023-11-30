@@ -234,10 +234,10 @@ const Main = () => {
           Local Movie Streamer 🎥
         </h1>
         <h1 className=" inline-flex text-base mt-1 mb-4 font-semibold pl-12">
-          Welcome back ,{"   "}
+          Welcome back ,{"     "}
           {user && (
             <span className="text-blue-500  text-base uppercase">
-              {user.name}
+              {"  "} {user.name}
             </span>
           )}
         </h1>
@@ -256,9 +256,8 @@ const Main = () => {
           </span>
         </div>
         <div
-          className="text z-10 text-black text-xl font-semibold 
-          capitalize animate-text-gradient bg-gradient-to-r from-[#b6b5bf]
-           via-[#813d8b] to-[#150ed4]  px-12 pb-4 
+          className="text-xl font-bold pb-8 capitalize pl-12
+          animate-text-gradient bg-gradient-to-r from-[#853232] via-[#5785c9] to-[#e90e0a] 
           bg-[200%_auto] bg-clip-text text-transparent"
         >
           your local files
