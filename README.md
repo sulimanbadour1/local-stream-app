@@ -10,6 +10,8 @@ Stream your local movies through a beautiful web interface. Local Movie Streamer
 
 ## V1.0 Stable
 Added TMDB API Points to fetch trending movies and tv series using react query, optimized the UI for the application for more check the screenshots below.
+![TMDB](https://github.com/sulimanbadour1/local-stream-app/blob/main/screenshots/Tmdb.JPG?raw=true)
+![NAVBAR](https://github.com/sulimanbadour1/local-stream-app/blob/main/screenshots/landingv1.JPG?raw=true)
 
 
 ## Features
