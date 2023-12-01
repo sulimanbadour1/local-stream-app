@@ -6,6 +6,12 @@ Stream your local movies through a beautiful web interface. Local Movie Streamer
 
 ![Landing Page](https://github.com/sulimanbadour1/local-stream-app/blob/main/screenshots/intro2.gif?raw=true)
 
+
+
+## V1.0 Stable
+Added TMDB API Points to fetch treding movies and tv series using react query, optimized the UI for the application for more check the screenshots below.
+
+
 ## Features
 
 - **Local Streaming**: Stream videos stored on your local machine using WebSockets for seamless video streaming.
@@ -13,6 +19,7 @@ Stream your local movies through a beautiful web interface. Local Movie Streamer
 - **Authentication**: Secure login and sign-up pages have been integrated.
 - **Subtitles**: Upload SRT subtitle files while watching a movie.
 - **Responsive**: Can be accessed on various device sizes using Tailwind CSS.
+- **Browse All types of Movies and TV Shows** : the ability to view and browse trending movies, popular high-rated etc using the TMDB API Service.
 
 ## Technology Stack
 

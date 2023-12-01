@@ -1,5 +1,5 @@
-import React from "react";
-import Cast from "../assets/icons/broadcast.png";
+/* eslint-disable react/prop-types */
+
 const Card2 = ({ title, duration, thumbnail, onClick, onPlayRemote }) => {
   const formattedDuration = new Date(duration * 1000)
     .toISOString()

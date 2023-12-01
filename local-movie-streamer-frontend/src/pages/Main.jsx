@@ -1,5 +1,3 @@
-/* eslint-disable no-case-declarations */
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef, useContext } from "react";
 // import Logo from "../src/assets/logo.png";
 
@@ -12,6 +10,7 @@ import Cast from "../assets/icons/broadcast.png";
 import fullscreen from "../assets/icons/fullscreen.png";
 import { io } from "socket.io-client";
 import Card2 from "../components/Card2";
+
 import { UserContext } from "../../context/UserContext";
 // Animation
 import { Player, Controls } from "@lottiefiles/react-lottie-player";
@@ -235,13 +234,14 @@ const Main = () => {
           Local Movie Streamer 🎥
         </h1>
         <h1 className=" inline-flex text-base mt-1 mb-4 font-semibold pl-12">
-          Welcome back ,{"   "}
+          Welcome back ,{"     "}
           {user && (
             <span className="text-blue-500  text-base uppercase">
-              {user.name}
+              {"  "} {user.name}
             </span>
           )}
         </h1>
+
         <div className="relative mb-8 pl-12 pr-8">
           <input
             type="text"
@@ -255,6 +255,14 @@ const Main = () => {
             🔍
           </span>
         </div>
+        <div
+          className="text-xl font-bold pb-8 capitalize pl-12
+          animate-text-gradient bg-gradient-to-r from-[#853232] via-[#5785c9] to-[#e90e0a] 
+          bg-[200%_auto] bg-clip-text text-transparent"
+        >
+          your local files
+        </div>
+
         {user && (
           <div
             className={`flex flex-wrap pl-12 pb-32 gap-1 ${

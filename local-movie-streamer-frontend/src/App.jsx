@@ -8,6 +8,10 @@ import axios from "axios";
 import { Toaster } from "react-hot-toast";
 import { UserContextProvider } from "../context/userContext";
 import Profile from "./pages/Profile";
+import Movies from "./pages/Shows";
+import HomeShows from "./pages/Shows/home";
+import Movie from "./pages/Shows/movie";
+import TvShow from "./pages/Shows/tvshow";
 
 /// set up axios
 
@@ -21,6 +25,11 @@ function App() {
       <Toaster position="bottom-right" toastOptions={{ duration: 2000 }} />
       <Routes>
         <Route path="/" element={<Main />} />
+        <Route path="/homeshows" element={<HomeShows />} />
+        <Route path="/movie/:id" element={<Movie />} />
+        <Route path="/tvshow/:id" element={<TvShow />} />
+        {/* <Route path="/movies" element={<Movies />} /> */}
+        <Route path="/movie_series" element={<HomeShows />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
