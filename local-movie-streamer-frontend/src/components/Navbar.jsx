@@ -11,7 +11,7 @@ let NotAuthUser = [
   {
     id: "movies",
     name: "Movies & Series",
-    url: "/movies",
+    url: "/movie_series",
   },
   {
     id: "login",
@@ -34,7 +34,7 @@ const AthUserTabs = [
   {
     id: "movies",
     name: "Movies & Series",
-    url: "/movie",
+    url: "/movie_series",
   },
   {
     id: "profile",
