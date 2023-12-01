@@ -10,18 +10,18 @@ const ColumnDisplay = ({ tab, data }) => {
             <Link
               to={`/${tab === "movies" ? "movie" : "tvshow"}/${item.id}`}
               key={item.id}
+              reloadDocument
             >
               <div className={styles.card}>
                 <div className={styles.poster}>
                   <img
                     src={`https://image.tmdb.org/t/p/original/${item.poster_path}`}
                     alt="Poster"
-                    loading="lazy"
                   />
                 </div>
                 <div className={styles.details}>
                   <h1>{tab === "movies" ? item.title : item.name}</h1>
-                  <h2>
+                  <h2 className="uppercase">
                     {tab === "movies" ? item.release_date : item.first_air_date}{" "}
                     • {item.original_language} • {item.media_type}
                   </h2>
@@ -34,7 +34,9 @@ const ColumnDisplay = ({ tab, data }) => {
                   <span className={styles.tag}>Drama</span>
                   <span className={styles.tag}>Indie</span>
                 </div> */}
-                  <p className={styles.desc}>{item.overview.slice(0, 300)}</p>
+                  <p className={styles.desc}>
+                    {item.overview.slice(0, 200)}...
+                  </p>
                 </div>
               </div>
             </Link>

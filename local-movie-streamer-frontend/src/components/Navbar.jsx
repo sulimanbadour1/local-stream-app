@@ -34,7 +34,7 @@ const AthUserTabs = [
   {
     id: "movies",
     name: "Movies & Series",
-    url: "/movies",
+    url: "/movie",
   },
   {
     id: "profile",

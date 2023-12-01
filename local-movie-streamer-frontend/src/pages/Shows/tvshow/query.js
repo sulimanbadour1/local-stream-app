@@ -1,7 +1,7 @@
 // To fetch movie details from the backend
-export const fetchMovieDetails = async (movie_id) => {
+export const fetchTvDetails = async (series_id) => {
   const res = await fetch(
-    `https://api.themoviedb.org/3/movie/${movie_id}?language=en-US`,
+    `https://api.themoviedb.org/3/tv/${series_id}?language=en-US`,
     {
       headers: {
         Authorization:
@@ -13,9 +13,9 @@ export const fetchMovieDetails = async (movie_id) => {
 };
 
 // provide the movie id to fetch the movie details
-export const fetchRecommendations = async (movie_id) => {
+export const fetchRecommendationsforTV = async (series_id) => {
   const res = await fetch(
-    `https://api.themoviedb.org/3/movie/${movie_id}/recommendations?language=en-US&page=1`,
+    `https://api.themoviedb.org/3/tv/${series_id}/recommendations?language=en-US&page=1`,
     {
       headers: {
         Authorization:
@@ -26,10 +26,10 @@ export const fetchRecommendations = async (movie_id) => {
   return res.json();
 };
 
-//get the trailer for the movie
-export const fetchTrailerMovie = async (movie_id) => {
+//get the trailer for the tv
+export const fetchTrailerTv = async (series_id) => {
   const res = await fetch(
-    `https://api.themoviedb.org/3/movie/${movie_id}/videos?language=en-US`,
+    `https://api.themoviedb.org/3/tv/${series_id}/videos?language=en-US`,
     {
       headers: {
         Authorization:

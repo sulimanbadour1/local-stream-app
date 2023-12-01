@@ -94,7 +94,7 @@ const HomeShows = () => {
           {/* // Treding poplar etc */}
           {cats.map((item) => (
             <ul
-              className="flex flex-row text-base font-medium "
+              className="flex flex-row text-base font-light text-center "
               key={item.name}
             >
               <li>
@@ -114,7 +114,7 @@ const HomeShows = () => {
 
         <div className="flex justify-center ">
           <ul
-            className="flex flex-wrap text-base font-medium text-center
+            className="flex flex-wrap text-base font-light text-center
            text-gray-500 dark:text-gray-400 mt-8"
           >
             <li className="me-2">
