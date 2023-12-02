@@ -60,15 +60,12 @@ const Movie = () => {
   // let bg = `https://image.tmdb.org/t/p/original/${data.backdrop_path}`;
   return (
     <div className=" items-center justify-center content-center">
-      <div className="px-4 md:px-28 mt-12 flex mx-auto justify-center mb-12">
+      {/* The movie details are: */}
+
+      <div className="px-4 md:px-48 mt-12 flex mx-auto justify-center mb-12">
         <div
           className={`p-8 flex gap-10 border border-gray-600/10 rounded-lg flex-col md:flex-row`}
         >
-          {/* // photo and trailer */}
-
-          {/* Background image with low opacity */}
-
-          {/* Content over the background */}
           <div className="relative z-10">
             <img
               src={`https://image.tmdb.org/t/p/original/${singleMovie.poster_path}`}

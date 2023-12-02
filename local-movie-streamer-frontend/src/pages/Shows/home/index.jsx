@@ -116,8 +116,8 @@ const HomeShows = () => {
     isLoading: isUpComingTvShows,
     status: statusUpComingTvShows,
   } = useQuery({
-    queryKey: ["UpComingTvShows"],
-    queryFn: fetchUpComingTvShows,
+    queryKey: ["UpComingTvShows", { page: currentPage }],
+    queryFn: () => fetchUpComingTvShows(currentPage),
   });
 
   const isDataLoaded = [
