@@ -25,59 +25,122 @@ const cats = [
 const HomeShows = () => {
   const [tab, setTab] = useState("movies");
   const [type, setType] = useState("trending");
-
-  const { data: movieData, isLoading: isLoadingMovies } = useQuery({
+  const [currentPage, setCurrentPage] = useState(1);
+  // Movies Trending
+  const {
+    data: movieData,
+    isLoading: isLoadingMovies,
+    status: statusMovies,
+  } = useQuery({
     queryKey: ["movies"],
     queryFn: fetchMovies,
   });
-
-  const { data: tvShowData, isLoading: isLoadingTvShows } = useQuery({
+  // Tv Shows Trending
+  const {
+    data: tvShowData,
+    isLoading: isLoadingTvShows,
+    status: statusTvShows,
+  } = useQuery({
     queryKey: ["tvshows"],
     queryFn: fetchTvShows,
   });
   // Now Playing Movies
-  const { data: NowPlayingMovies, isLoading: isLoadingNowPlayingMovies } =
-    useQuery({
-      queryKey: ["NowPlayingMovies"],
-      queryFn: fetchNowPlayingMovies,
-    });
-  // Now Playing TvShows
-  const { data: NowPlayingTv, isLoading: isLoadingNowPlayingTv } = useQuery({
-    queryKey: ["NowPlayingTv"],
-    queryFn: fetchNowPlayingTvShows,
+  const {
+    data: NowPlayingMovies,
+    isLoading: isLoadingNowPlayingMovies,
+    status: statusNowPlayingMovies,
+  } = useQuery({
+    queryKey: ["NowPlayingMovies", { page: currentPage }],
+    queryFn: () => fetchNowPlayingMovies(currentPage),
   });
+  // Now Playing TvShows
+  const {
+    data: NowPlayingTv,
+    isLoading: isLoadingNowPlayingTv,
+    status: statusNowPlayingTv,
+  } = useQuery({
+    queryKey: ["NowPlayingTv", { page: currentPage }],
+    queryFn: () => fetchNowPlayingTvShows(currentPage),
+  });
+  console.log(currentPage);
 
   // Top Rated Movies
-  const { data: TopRatedMovies, isLoading: isTopRatedMovies } = useQuery({
-    queryKey: ["TopRatedMovies"],
-    queryFn: fetchTopRatedMovies,
+  const {
+    data: TopRatedMovies,
+    isLoading: isTopRatedMovies,
+    status: statusTopRatedMovies,
+  } = useQuery({
+    queryKey: ["TopRatedMovies", { page: currentPage }],
+    queryFn: () => fetchTopRatedMovies(currentPage),
   });
   // Top Rated TvShows
-  const { data: TopRatedTvShows, isLoading: isTopRatedTvShows } = useQuery({
-    queryKey: ["TopRatedTvShows"],
-    queryFn: fetchTopRatedTvShows,
+  const {
+    data: TopRatedTvShows,
+    isLoading: isTopRatedTvShows,
+    status: statusTopRatedTvShows,
+  } = useQuery({
+    queryKey: ["TopRatedTvShows", { page: currentPage }],
+    queryFn: () => fetchTopRatedTvShows(currentPage),
   });
   // popular movies
-  const { data: PopularMovies, isLoading: isPopularMovies } = useQuery({
-    queryKey: ["PopularMovies"],
-    queryFn: fetchPopularMovies,
+  const {
+    data: PopularMovies,
+    isLoading: isPopularMovies,
+    status: statusPopularMovies,
+  } = useQuery({
+    queryKey: ["PopularMovies", { page: currentPage }],
+    queryFn: () => fetchPopularMovies(currentPage),
   });
-  //  popular tvshows
-  const { data: PopularTvShows, isLoading: isPopularTvShows } = useQuery({
-    queryKey: ["PopularTvShows"],
-    queryFn: fetchPopularTvShows,
+  // popular tvshows
+  const {
+    data: PopularTvShows,
+    isLoading: isPopularTvShows,
+    status: statusPopularTvShows,
+  } = useQuery({
+    queryKey: ["PopularTvShows", { page: currentPage }],
+    queryFn: () => fetchPopularTvShows(currentPage),
   });
 
   //Upcoming Movies
-  const { data: UpComingMovies, isLoading: isUpComingMovies } = useQuery({
-    queryKey: ["UpComingMovies"],
-    queryFn: fetchUpComingMovies,
+  const {
+    data: UpComingMovies,
+    isLoading: isUpComingMovies,
+    status: statusUpComingMovies,
+  } = useQuery({
+    queryKey: ["UpComingMovies", { page: currentPage }],
+    queryFn: () => fetchUpComingMovies(currentPage),
   });
   //Upcoming Series
-  const { data: UpComingTvShows, isLoading: isUpComingTvShows } = useQuery({
+  const {
+    data: UpComingTvShows,
+    isLoading: isUpComingTvShows,
+    status: statusUpComingTvShows,
+  } = useQuery({
     queryKey: ["UpComingTvShows"],
     queryFn: fetchUpComingTvShows,
   });
+
+  const isDataLoaded = [
+    statusMovies,
+    statusTvShows,
+    statusNowPlayingMovies,
+    statusNowPlayingTv,
+    statusTopRatedMovies,
+    statusTopRatedTvShows,
+    statusPopularMovies,
+    statusPopularTvShows,
+    statusUpComingMovies,
+    statusUpComingTvShows,
+  ].every((status) => status === "success");
+
+  if (!isDataLoaded) {
+    return (
+      <div className="flex justify-center mt-12 flex-col content-center items-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+        <h1 className="mt-12 text-xl">Loading...</h1>
+      </div>
+    );
+  }
   return (
     <div className="mt-14 h-auto mx-auto flex  pb-36 flex-col justify-center items-center text-center">
       <div className="justify-center flex content-center">
@@ -236,6 +299,30 @@ const HomeShows = () => {
               )}
             </div>
           )}
+        </div>
+      )}
+      {type === "trending" ? (
+        <></>
+      ) : (
+        <div className="flex justify-center mt-4 py-4 px-3 ">
+          <button
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+            className="bg-gray-900 text-white px-4 py-2 rounded-md hover:bg-gray-700 disabled:opacity-50 
+          disabled:hover:bg-gray-900 disabled:cursor-not-allowed"
+          >
+            Previous Page
+          </button>
+          <span className=" px-4 py-2 text-lg font-medium">
+            Page {currentPage}
+          </span>
+          <button
+            onClick={() => setCurrentPage((prev) => prev + 1)}
+            // You can set a maximum page based on your API or data
+            className="bg-gray-900 text-white px-4 py-2 rounded-md hover:bg-gray-700"
+          >
+            Next Page
+          </button>
         </div>
       )}
     </div>

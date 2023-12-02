@@ -9,17 +9,27 @@ import {
   fetchTvDetails,
 } from "./query";
 const TvShow = () => {
+  // force reload the page if the id is changed
+  // eslint-disable-next-line no-unused-vars
   const [tab, setTab] = useState("series");
   const { id } = useParams();
-  const { data, isLoading } = useQuery({
+  const {
+    data,
+    isLoading: isLoadingTvDetails,
+    status: statusTvDetails,
+  } = useQuery({
     queryKey: ["tvshow"],
     queryFn: () => fetchTvDetails(id),
   });
-  const { data: ReccomdTv, isLoading: isReccomdTv } = useQuery({
+  const {
+    data: ReccomdTv,
+    isLoading: isReccomdTv,
+    status: statusReccomdTv,
+  } = useQuery({
     queryKey: ["reccomendationsforTv"],
     queryFn: () => fetchRecommendationsforTV(id),
   });
-  const { data: Videos } = useQuery({
+  const { data: Videos, status: statusVideos } = useQuery({
     queryKey: ["youtube"],
     queryFn: () => fetchTrailerTv(id),
   });
@@ -28,7 +38,12 @@ const TvShow = () => {
     return <div>404</div>;
   }
 
-  if (isLoading) {
+  const isDataLoaded =
+    statusTvDetails === "success" &&
+    statusReccomdTv === "success" &&
+    statusVideos === "success";
+
+  if (isLoadingTvDetails || !isDataLoaded) {
     return (
       <div className="flex justify-center mt-12 flex-col content-center items-center">
         <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
@@ -152,7 +167,7 @@ const TvShow = () => {
         </div>
 
         {/* The recommended movies are: */}
-        {isReccomdTv == 0 ? (
+        {isReccomdTv === 0 ? (
           <> </>
         ) : (
           <>
@@ -185,7 +200,8 @@ const TvShow = () => {
                         <div className={styles.poster}>
                           <img
                             src={`https://image.tmdb.org/t/p/original/${item.poster_path}`}
-                            alt="Poster"
+                            alt={item.name}
+                            loading="lazy"
                           />
                         </div>
                         <div className={styles.details}>

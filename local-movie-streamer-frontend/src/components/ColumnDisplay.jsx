@@ -16,7 +16,8 @@ const ColumnDisplay = ({ tab, data }) => {
                 <div className={styles.poster}>
                   <img
                     src={`https://image.tmdb.org/t/p/original/${item.poster_path}`}
-                    alt="Poster"
+                    alt={item.name}
+                    loading="lazy"
                   />
                 </div>
                 <div className={styles.details}>

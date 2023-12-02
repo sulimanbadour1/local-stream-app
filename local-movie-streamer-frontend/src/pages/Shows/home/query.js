@@ -9,7 +9,6 @@ export const fetchMovies = async () => {
       },
     }
   );
-  //   console.log(res.json());
   return res.json();
 };
 // Trending TV Shows
@@ -23,14 +22,14 @@ export const fetchTvShows = async () => {
       },
     }
   );
-  //   console.log(res.json());
+
   return res.json();
 };
 
 // Now Playing Movies
-export const fetchNowPlayingMovies = async () => {
+export const fetchNowPlayingMovies = async (page = 1) => {
   const res = await fetch(
-    "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",
+    `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${page}`,
     {
       headers: {
         Authorization:
@@ -38,13 +37,13 @@ export const fetchNowPlayingMovies = async () => {
       },
     }
   );
-  //   console.log(res.json());
+
   return res.json();
 };
 // Now Playing TvShows
-export const fetchNowPlayingTvShows = async () => {
+export const fetchNowPlayingTvShows = async (page = 1) => {
   const res = await fetch(
-    "https://api.themoviedb.org/3/tv/on_the_air?language=en-US&page=1",
+    `https://api.themoviedb.org/3/tv/on_the_air?language=en-US&page=${page}`,
     {
       headers: {
         Authorization:
@@ -57,9 +56,9 @@ export const fetchNowPlayingTvShows = async () => {
 };
 
 // Top Rated Movies
-export const fetchTopRatedMovies = async () => {
+export const fetchTopRatedMovies = async (page = 1) => {
   const res = await fetch(
-    "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1",
+    `https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=${page}`,
     {
       headers: {
         Authorization:
@@ -71,9 +70,9 @@ export const fetchTopRatedMovies = async () => {
   return res.json();
 };
 // Top Rated TvShows
-export const fetchTopRatedTvShows = async () => {
+export const fetchTopRatedTvShows = async (page = 1) => {
   const res = await fetch(
-    "https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=1",
+    `https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=${page}`,
     {
       headers: {
         Authorization:
@@ -86,9 +85,9 @@ export const fetchTopRatedTvShows = async () => {
 };
 
 // popular movies
-export const fetchPopularMovies = async () => {
+export const fetchPopularMovies = async (page = 1) => {
   const res = await fetch(
-    "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",
+    `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${page}`,
     {
       headers: {
         Authorization:
@@ -101,9 +100,9 @@ export const fetchPopularMovies = async () => {
 };
 
 // popular tvshows
-export const fetchPopularTvShows = async () => {
+export const fetchPopularTvShows = async (page = 1) => {
   const res = await fetch(
-    "https://api.themoviedb.org/3/tv/popular?language=en-US&page=1",
+    `https://api.themoviedb.org/3/tv/popular?language=en-US&page=${page}`,
     {
       headers: {
         Authorization:
@@ -116,9 +115,9 @@ export const fetchPopularTvShows = async () => {
 };
 
 //upcoming movies
-export const fetchUpComingMovies = async () => {
+export const fetchUpComingMovies = async (page = 1) => {
   const res = await fetch(
-    "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1",
+    `https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=${page}`,
     {
       headers: {
         Authorization:
@@ -130,9 +129,9 @@ export const fetchUpComingMovies = async () => {
   return res.json();
 };
 //upcoming tvshows
-export const fetchUpComingTvShows = async () => {
+export const fetchUpComingTvShows = async (page = 1) => {
   const res = await fetch(
-    "https://api.themoviedb.org/3/tv/airing_today?language=en-US&page=1",
+    `https://api.themoviedb.org/3/tv/airing_today?language=en-US&page=${page}`,
     {
       headers: {
         Authorization:
