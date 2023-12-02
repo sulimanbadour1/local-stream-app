@@ -1,13 +1,23 @@
-/* eslint-disable no-unused-vars */
 import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
 import {
+  fetchImages,
   fetchMovieDetails,
   fetchRecommendations,
   fetchTrailerMovie,
 } from "./query";
 import styles from "../../../components/MovieCard/movie.module.css";
 import { useState } from "react";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
+// import required modules
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
 const Movie = () => {
   // eslint-disable-next-line no-unused-vars
   const [tab, setTab] = useState("movies");
@@ -33,7 +43,11 @@ const Movie = () => {
     queryKey: ["VideosTrailer"],
     queryFn: () => fetchTrailerMovie(id),
   });
-  // console.log(TrailerVideos);
+  const { data: ImagesMovie, status: ImagesStatus } = useQuery({
+    queryKey: ["ImagesMovie"],
+    queryFn: () => fetchImages(id),
+  });
+  console.log(ImagesMovie);
 
   if (!id) {
     return <div>404</div>;
@@ -43,6 +57,7 @@ const Movie = () => {
     statusSingleMovie,
     statusReccomdMovies,
     statusTrailerVideos,
+    ImagesStatus,
   ].every((status) => status === "success");
 
   if (!isDataLoaded) {
@@ -61,11 +76,9 @@ const Movie = () => {
   // let bg = `https://image.tmdb.org/t/p/original/${data.backdrop_path}`;
   return (
     <div className=" items-center justify-center content-center">
-      {/* The movie details are: */}
-
       <div className="px-4 md:px-48 mt-12 flex mx-auto justify-center mb-12">
         <div
-          className={`p-8 flex gap-10 border border-gray-600/10 rounded-lg flex-col md:flex-row`}
+          className={`p-8 flex gap-10 border border-gray-600/10 rounded-lg flex-col md:flex-col lg:flex-row justify-center content-center items-center `}
         >
           <div className="relative z-10">
             <img
@@ -74,6 +87,7 @@ const Movie = () => {
               alt={singleMovie.title}
               loading="lazy"
             />
+
             <div>
               {TrailerVideos.results.map((item) => (
                 <a
@@ -100,6 +114,34 @@ const Movie = () => {
               ))}
             </div>
           </div>
+          {/* <div className="py-2">
+            <Swiper
+              spaceBetween={1}
+              centeredSlides={true}
+              pagination={{
+                clickable: true,
+              }}
+              navigation={true}
+              modules={[Autoplay, Pagination, Navigation]}
+              className="mySwiper w-96 h-96 py-4  object-cover"
+            >
+              <div className="flex justify-center content-center items-center w-24 h-24">
+                {ImagesMovie.backdrops.map((item) => (
+                  <SwiperSlide
+                    className="flex justify-center content-center items-center"
+                    key={item.file_path}
+                  >
+                    <img
+                      src={`https://image.tmdb.org/t/p/original/${item.file_path}`}
+                      className="rounded-lg shadow-lg w-96 h-fit z-10 object-cover"
+                      alt={singleMovie.title}
+                      loading="lazy"
+                    />
+                  </SwiperSlide>
+                ))}
+              </div>
+            </Swiper>
+          </div> */}
           <div className="flex px-4 flex-col flex-1 mx-auto">
             <div className="text-xl md:text-5xl pt-12 pb-4 font-bold">
               {singleMovie.title}

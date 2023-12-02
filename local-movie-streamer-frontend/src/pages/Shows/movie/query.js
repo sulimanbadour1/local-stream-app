@@ -13,6 +13,9 @@ const fetchTrailerMovie = async (movie_id) => {
   return makeApiRequest(`/movie/${movie_id}/videos?language=en-US`);
 };
 
+const fetchImages = async (movie_id) => {
+  return makeApiRequest(`/movie/${movie_id}/images`);
+};
 const makeApiRequest = async (endpoint) => {
   const url = `https://api.themoviedb.org/3${endpoint}`;
   const res = await fetch(url, {
@@ -23,4 +26,9 @@ const makeApiRequest = async (endpoint) => {
   return res.json();
 };
 
-export { fetchMovieDetails, fetchRecommendations, fetchTrailerMovie };
+export {
+  fetchMovieDetails,
+  fetchImages,
+  fetchRecommendations,
+  fetchTrailerMovie,
+};
