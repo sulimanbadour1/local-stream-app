@@ -21,3 +21,8 @@ export const fetchTrailerTv = async (series_id) => {
   const url = `https://api.themoviedb.org/3/tv/${series_id}/videos?language=en-US`;
   return fetchData(url);
 };
+
+export const fetchImages = async (series_id) => {
+  const url = `https://api.themoviedb.org/3/tv/${series_id}/images`;
+  return fetchData(url);
+};

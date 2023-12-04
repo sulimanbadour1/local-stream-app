@@ -87,7 +87,7 @@ const Movie = () => {
           className={`p-8 flex gap-10 border border-gray-600/10 rounded-lg
           backdrop-blur-xl bg-white/30
            flex-col md:flex-col lg:flex-row justify-center content-center items-center
-           m-12 `}
+           m-4 `}
         >
           <div className="relative z-10">
             <img

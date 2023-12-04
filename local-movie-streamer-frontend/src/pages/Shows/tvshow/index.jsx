@@ -34,14 +34,21 @@ const TvShow = () => {
     queryKey: ["youtube"],
     queryFn: () => fetchTrailerTv(id),
   });
+  const { data: ImagesTv, status: ImagesStatus } = useQuery({
+    queryKey: ["ImagesTv"],
+    queryFn: () => fetchTvDetails(id),
+  });
 
   if (!id) {
     return <div>404</div>;
   }
   // reload the page if the id is changed
-  const isDataLoaded = [statusTvDetails, statusReccomdTv, statusVideos].every(
-    (status) => status === "success"
-  );
+  const isDataLoaded = [
+    statusTvDetails,
+    statusReccomdTv,
+    statusVideos,
+    ImagesStatus,
+  ].every((status) => status === "success");
 
   if (!isDataLoaded) {
     return (
@@ -55,10 +62,16 @@ const TvShow = () => {
   return (
     <div>
       <div className=" items-center justify-center content-center">
-        <div className="px-4 md:px-28 mt-12 flex mx-auto justify-center mb-12">
+        <div
+          className="px-4 md:px-28 mt-12 flex mx-auto justify-center mb-12
+        bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url(https://image.tmdb.org/t/p/original/${ImagesTv.backdrop_path})`,
+          }}
+        >
           <div
             className={`p-8 flex gap-10 border border-gray-600/10 rounded-lg 
-            shadow-lg flex-col md:flex-row`}
+            shadow-lg flex-col md:flex-row  backdrop-blur-xl bg-white/30 m-4`}
           >
             <div className="flex p-8 object-cover">
               <div className="relative">
