@@ -71,7 +71,7 @@ const TvShow = () => {
         >
           <div
             className={`p-8 flex gap-10 border border-gray-600/10 rounded-lg 
-            shadow-lg flex-col md:flex-row  backdrop-blur-xl bg-white/30 m-4`}
+            shadow-lg flex-col md:flex-row  backdrop-blur-xl bg-white/30 m-8`}
           >
             <div className="flex p-8 object-cover">
               <div className="relative">
