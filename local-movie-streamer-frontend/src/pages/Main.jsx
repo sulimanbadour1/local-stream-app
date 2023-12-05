@@ -15,6 +15,7 @@ import { UserContext } from "../../context/UserContext";
 // Animation
 import { Player, Controls } from "@lottiefiles/react-lottie-player";
 import Anim from "../assets/anim/anim2.json";
+import { Link } from "react-router-dom";
 
 // Animation
 const Main = () => {
@@ -212,6 +213,7 @@ const Main = () => {
                 Sign in
               </button>
             </a>
+
             <p className="mt-4 text-center text-sm text-gray-500">
               Not a member?{" "}
               <a
@@ -221,6 +223,17 @@ const Main = () => {
                 Sign up now
               </a>
             </p>
+            <p className="mt-8 text-center text-sm text-gray-500">
+              Additonally, you can also check out our movies & series API
+            </p>
+            <Link to="/movie_series">
+              <button
+                className="flex justify-center m-4 w-fit mx-auto rounded-md bg-black px-3 py-1.5 text-sm font-semibold leading-6
+             text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                Movies & Series API
+              </button>
+            </Link>
           </div>
         </div>
       </main>
